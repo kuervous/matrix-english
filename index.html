@@ -2,555 +2,1549 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MATRIX MASTER ENCYCLOPEDIA: AZAR V9.0</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>MATRIX MASTER ENCYCLOPEDIA: AZAR V10.0 MOBILE</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --m-green: #00FF41; --m-dark: #001500; --m-bg: #030303; --m-red: #ff3131; --m-blue: #00d4ff; }
-        * { box-sizing: border-box; }
-        body { background: #000; color: var(--m-green); font-family: 'Courier New', monospace; margin: 0; display: flex; height: 100vh; overflow: hidden; }
-
-        /* SIDEBAR DE CAPÍTULOS */
-        #sidebar { width: 320px; background: var(--m-dark); border-right: 2px solid var(--m-green); overflow-y: auto; padding: 15px; display: flex; flex-direction: column; }
-        .sidebar-header { font-size: 0.9em; text-align: center; padding-bottom: 15px; border-bottom: 1px solid var(--m-green); margin-bottom: 15px; color: #fff; }
-        .chapter-link { padding: 12px; border: 1px solid transparent; cursor: pointer; font-size: 0.8em; margin-bottom: 6px; display: block; color: var(--m-green); text-decoration: none; border-radius: 4px; transition: 0.3s; }
-        .chapter-link:hover { border: 1px solid var(--m-green); background: #000; box-shadow: 0 0 10px var(--m-green); }
-        .chapter-link.active { background: var(--m-green); color: #000; font-weight: bold; }
-
-        /* CONTENIDO PRINCIPAL */
-        #main-content { flex-grow: 1; display: flex; flex-direction: column; padding: 25px; overflow-y: auto; background: var(--m-bg); }
-        .rank-dashboard { display: flex; justify-content: space-around; background: #000; border: 1px solid var(--m-green); padding: 15px; margin-bottom: 20px; border-radius: 8px; }
-        .stat-item { text-align: center; font-size: 0.7em; text-transform: uppercase; }
-        .stat-val { display: block; font-size: 1.5em; font-weight: bold; color: #fff; }
-
-        /* ÁREA DE LECCIÓN */
-        .theory-card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 8px; margin-bottom: 20px; line-height: 1.4; border-left: 4px solid gold; }
-        .theory-card strong { color: gold; }
+        /* ====== VARIABLES GLOBALES ====== */
+        :root {
+            --m-green: #00FF41;
+            --m-green-glow: #00ff4140;
+            --m-dark: #001500;
+            --m-bg: #030303;
+            --m-red: #ff3131;
+            --m-blue: #00d4ff;
+            --m-yellow: #FFD700;
+            --m-panel: #071d13;
+            --m-text: #e0e0e0;
+            --m-border: #0a3;
+            --shadow: 0 4px 12px rgba(0, 0, 0, 0.7);
+        }
         
-        .practice-frame { border: 2px solid var(--m-green); padding: 30px; background: rgba(0,30,0,0.2); box-shadow: 0 0 20px var(--m-green); border-radius: 12px; position: relative; }
-        .unit-counter { position: absolute; top: 10px; right: 15px; font-size: 0.7em; opacity: 0.7; }
-        .char-label { background: var(--m-green); color: #000; padding: 2px 10px; font-size: 0.7em; font-weight: bold; margin-bottom: 15px; display: inline-block; }
+        /* ====== RESET Y BASE ====== */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
         
-        .text-en { font-size: 1.8em; color: #fff; margin: 15px 0; font-weight: bold; }
-        .text-es { font-size: 1.2em; color: #008f11; font-style: italic; }
-
-        /* FEEDBACK Y CONTROLES */
-        .evaluation-zone { margin: 25px 0; text-align: center; min-height: 100px; }
-        .score-circle { font-size: 3.5em; font-weight: bold; color: gold; text-shadow: 0 0 15px gold; margin: 10px 0; }
-        .transcript-visual { font-size: 1em; color: var(--m-blue); margin-top: 10px; font-style: italic; }
-        .match { color: var(--m-green); }
-        .miss { color: var(--m-red); text-decoration: line-through; }
-
-        .control-panel { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; }
-        .btn { background: #000; color: var(--m-green); border: 1px solid var(--m-green); padding: 15px; cursor: pointer; font-weight: bold; text-transform: uppercase; font-family: inherit; transition: 0.2s; }
-        .btn:hover { background: var(--m-green); color: #000; transform: scale(1.02); }
-        .btn:disabled { opacity: 0.2; cursor: not-allowed; }
-        .btn-rec.active { background: red !important; color: #fff; animation: pulse 1s infinite; border-color: #fff; }
-
-        /* ADMIN CONSOLE */
-        .admin-console { margin-top: 50px; border-top: 1px solid #333; padding-top: 25px; opacity: 0.8; transition: 0.5s; }
-        .admin-console:hover { opacity: 1; }
-        .admin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        textarea, input { width: 100%; background: #000; border: 1px solid #008f11; color: #fff; padding: 12px; margin-bottom: 10px; font-family: inherit; }
-
-        @keyframes pulse { 50% { background: #900; } }
-        ::-webkit-scrollbar { width: 4px; }
-        ::-webkit-scrollbar-thumb { background: var(--m-green); }
+        body {
+            background: var(--m-bg);
+            color: var(--m-text);
+            font-family: 'Segoe UI', 'Courier New', monospace, system-ui;
+            line-height: 1.5;
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 20% 30%, rgba(0, 255, 65, 0.03) 0%, transparent 25%),
+                radial-gradient(circle at 80% 70%, rgba(0, 255, 65, 0.03) 0%, transparent 25%);
+        }
+        
+        /* ====== ESTRUCTURA PRINCIPAL RESPONSIVE ====== */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            max-width: 100vw;
+        }
+        
+        /* ====== HEADER SUPERIOR (MOBILE) ====== */
+        .mobile-header {
+            display: none;
+            background: var(--m-dark);
+            border-bottom: 2px solid var(--m-green);
+            padding: 12px 15px;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .mobile-header .logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .mobile-header .logo h1 {
+            font-size: 1.1rem;
+            color: var(--m-green);
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+        
+        .menu-toggle {
+            background: none;
+            border: none;
+            color: var(--m-green);
+            font-size: 1.5rem;
+            cursor: pointer;
+            margin-left: auto;
+        }
+        
+        /* ====== SIDEBAR (DESKTOP) ====== */
+        .sidebar-desktop {
+            width: 320px;
+            background: linear-gradient(180deg, var(--m-dark) 0%, #000a06 100%);
+            border-right: 2px solid var(--m-green);
+            display: flex;
+            flex-direction: column;
+            flex-shrink: 0;
+            overflow: hidden;
+        }
+        
+        .sidebar-header {
+            padding: 25px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--m-border);
+            background: rgba(0, 30, 0, 0.2);
+        }
+        
+        .sidebar-header h2 {
+            color: var(--m-green);
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+        }
+        
+        .sidebar-header .subtitle {
+            color: var(--m-blue);
+            font-size: 0.8rem;
+            opacity: 0.8;
+        }
+        
+        /* ====== LISTA DE CAPÍTULOS ====== */
+        .chapter-list-container {
+            flex: 1;
+            overflow-y: auto;
+            padding: 15px;
+        }
+        
+        .chapter-link {
+            display: block;
+            padding: 14px 16px;
+            margin-bottom: 8px;
+            background: rgba(2, 17, 9, 0.8);
+            border: 1px solid transparent;
+            border-left: 4px solid var(--m-green);
+            color: var(--m-text);
+            text-decoration: none;
+            border-radius: 6px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        
+        .chapter-link:hover {
+            background: rgba(6, 43, 24, 0.8);
+            border: 1px solid var(--m-green);
+            transform: translateX(5px);
+        }
+        
+        .chapter-link.active {
+            background: linear-gradient(90deg, var(--m-dark), var(--m-green));
+            color: #000;
+            font-weight: bold;
+            border: 1px solid var(--m-green);
+            box-shadow: 0 0 15px var(--m-green-glow);
+        }
+        
+        /* ====== CONTENIDO PRINCIPAL ====== */
+        .main-content {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* ====== DASHBOARD DE ESTADÍSTICAS ====== */
+        .rank-dashboard {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 25px;
+            background: rgba(0, 21, 0, 0.3);
+            border: 1px solid var(--m-border);
+            border-radius: 12px;
+            padding: 18px;
+            backdrop-filter: blur(10px);
+        }
+        
+        .stat-item {
+            text-align: center;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+            border: 1px solid rgba(0, 255, 65, 0.2);
+        }
+        
+        .stat-label {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--m-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 6px;
+        }
+        
+        .stat-val {
+            display: block;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--m-green);
+            text-shadow: 0 0 10px var(--m-green-glow);
+            line-height: 1.2;
+        }
+        
+        /* ====== TARJETA DE TEORÍA ====== */
+        .theory-card {
+            background: rgba(7, 29, 19, 0.8);
+            border: 1px solid var(--m-border);
+            border-left: 5px solid var(--m-yellow);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: var(--shadow);
+        }
+        
+        .theory-card strong {
+            color: var(--m-yellow);
+            font-size: 1rem;
+            display: block;
+            margin-bottom: 8px;
+        }
+        
+        .theory-content {
+            color: var(--m-text);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+        
+        /* ====== ÁREA DE PRÁCTICA ====== */
+        .practice-frame {
+            background: rgba(3, 21, 13, 0.9);
+            border: 2px solid var(--m-green);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 25px;
+            position: relative;
+            box-shadow: 0 0 25px var(--m-green-glow);
+        }
+        
+        .unit-counter {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 0.75rem;
+            color: var(--m-blue);
+            background: rgba(0, 0, 0, 0.6);
+            padding: 4px 10px;
+            border-radius: 20px;
+            border: 1px solid var(--m-blue);
+        }
+        
+        .char-label {
+            display: inline-block;
+            background: var(--m-green);
+            color: #000;
+            font-weight: bold;
+            font-size: 0.8rem;
+            padding: 6px 14px;
+            border-radius: 20px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .text-en {
+            font-size: 1.7rem;
+            color: #fff;
+            font-weight: 600;
+            margin: 20px 0;
+            line-height: 1.4;
+            text-align: center;
+            min-height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .text-es {
+            font-size: 1.2rem;
+            color: var(--m-blue);
+            font-style: italic;
+            margin: 15px 0 25px;
+            text-align: center;
+            min-height: 60px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            border-top: 2px dashed var(--m-blue);
+        }
+        
+        /* ====== ZONA DE EVALUACIÓN ====== */
+        .evaluation-zone {
+            margin: 25px 0;
+            text-align: center;
+            min-height: 120px;
+            padding: 15px;
+            background: rgba(0, 30, 0, 0.2);
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 65, 0.3);
+        }
+        
+        .diff-visual {
+            font-family: 'Courier New', monospace;
+            font-size: 1rem;
+            margin: 15px 0;
+            line-height: 1.8;
+            min-height: 40px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            border-radius: 6px;
+            border: 1px solid rgba(0, 212, 255, 0.3);
+        }
+        
+        .match {
+            color: var(--m-green);
+            font-weight: bold;
+        }
+        
+        .miss {
+            color: var(--m-red);
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+        
+        .score-circle {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: var(--m-yellow);
+            text-shadow: 0 0 20px gold;
+            margin: 10px 0;
+            font-family: 'Arial Black', sans-serif;
+        }
+        
+        .transcript-visual {
+            font-size: 1.1rem;
+            color: var(--m-blue);
+            font-style: italic;
+            margin-top: 15px;
+            min-height: 24px;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 6px;
+            border: 1px solid var(--m-blue);
+        }
+        
+        /* ====== PANEL DE CONTROL ====== */
+        .control-panel {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 10px;
+            margin-top: 25px;
+        }
+        
+        .btn {
+            background: linear-gradient(145deg, #031a10, #000c06);
+            color: var(--m-green);
+            border: 1px solid var(--m-green);
+            padding: 16px 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-family: inherit;
+            transition: all 0.3s ease;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            letter-spacing: 0.5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 70px;
+        }
+        
+        .btn:hover {
+            background: var(--m-green);
+            color: #000;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px var(--m-green-glow);
+        }
+        
+        .btn:active {
+            transform: translateY(0);
+        }
+        
+        .btn:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            transform: none;
+        }
+        
+        .btn i {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
+        }
+        
+        .btn-rec {
+            background: linear-gradient(145deg, #8b0000, #660000);
+            border-color: #ff4444;
+            color: #fff;
+        }
+        
+        .btn-rec.active {
+            background: #ff0000 !important;
+            color: white !important;
+            animation: pulse 1.5s infinite;
+            border-color: #fff;
+        }
+        
+        .btn-auto {
+            background: linear-gradient(145deg, #004466, #002233);
+            border-color: var(--m-blue);
+            color: var(--m-blue);
+        }
+        
+        .btn-auto.active {
+            background: var(--m-blue) !important;
+            color: #000 !important;
+        }
+        
+        /* ====== CONSOLA DE ADMIN ====== */
+        .admin-console {
+            margin-top: 40px;
+            border-top: 2px dashed var(--m-border);
+            padding-top: 25px;
+            opacity: 0.9;
+            transition: opacity 0.3s;
+        }
+        
+        .admin-console:hover {
+            opacity: 1;
+        }
+        
+        .admin-title {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
+        .admin-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .admin-input-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .admin-input-group label {
+            color: var(--m-green);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        textarea, input {
+            width: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid var(--m-border);
+            color: var(--m-text);
+            padding: 14px;
+            margin-bottom: 15px;
+            font-family: inherit;
+            font-size: 0.95rem;
+            border-radius: 6px;
+            transition: border 0.3s;
+        }
+        
+        textarea:focus, input:focus {
+            outline: none;
+            border: 1px solid var(--m-green);
+            box-shadow: 0 0 10px var(--m-green-glow);
+        }
+        
+        textarea {
+            min-height: 100px;
+            resize: vertical;
+        }
+        
+        .admin-actions {
+            grid-column: span 2;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 10px;
+        }
+        
+        .btn-admin {
+            padding: 16px;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+        
+        .btn-export {
+            background: linear-gradient(145deg, #333300, #222200);
+            border-color: var(--m-yellow);
+            color: var(--m-yellow);
+        }
+        
+        .btn-reset {
+            background: linear-gradient(145deg, #660000, #440000);
+            border-color: var(--m-red);
+            color: var(--m-red);
+        }
+        
+        /* ====== ANIMACIONES ====== */
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(255, 0, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 0, 0, 0); }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        /* ====== SCROLLBAR PERSONALIZADO ====== */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 20, 0, 0.3);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb {
+            background: var(--m-green);
+            border-radius: 10px;
+        }
+        
+        ::-webkit-scrollbar-thumb:hover {
+            background: #00cc33;
+        }
+        
+        /* ====== MEDIA QUERIES - RESPONSIVE ====== */
+        
+        /* TABLETS (768px a 1024px) */
+        @media (max-width: 1024px) {
+            .app-container {
+                flex-direction: column;
+            }
+            
+            .sidebar-desktop {
+                width: 100%;
+                max-height: 300px;
+                border-right: none;
+                border-bottom: 2px solid var(--m-green);
+            }
+            
+            .chapter-list-container {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 10px;
+            }
+            
+            .chapter-link {
+                margin-bottom: 0;
+                text-align: center;
+                padding: 12px;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .control-panel {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            
+            .btn:nth-child(4), .btn:nth-child(5) {
+                grid-column: span 3;
+            }
+            
+            .admin-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .admin-actions {
+                grid-column: 1;
+            }
+        }
+        
+        /* MÓVILES GRANDES (576px a 768px) */
+        @media (max-width: 768px) {
+            .mobile-header {
+                display: flex;
+            }
+            
+            .sidebar-desktop {
+                display: none;
+                position: fixed;
+                top: 60px;
+                left: 0;
+                width: 100%;
+                height: calc(100vh - 60px);
+                z-index: 999;
+                border-bottom: none;
+            }
+            
+            .sidebar-desktop.active {
+                display: flex;
+            }
+            
+            .main-content {
+                padding: 15px 12px;
+            }
+            
+            .rank-dashboard {
+                grid-template-columns: repeat(3, 1fr);
+                padding: 15px;
+                gap: 10px;
+            }
+            
+            .stat-val {
+                font-size: 1.5rem;
+            }
+            
+            .text-en {
+                font-size: 1.4rem;
+                padding: 12px;
+                min-height: 70px;
+            }
+            
+            .text-es {
+                font-size: 1.1rem;
+                min-height: 50px;
+            }
+            
+            .practice-frame {
+                padding: 20px 15px;
+            }
+            
+            .score-circle {
+                font-size: 2.8rem;
+            }
+            
+            .btn {
+                padding: 14px 6px;
+                font-size: 0.8rem;
+                min-height: 65px;
+            }
+            
+            .btn i {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* MÓVILES PEQUEÑOS (hasta 576px) */
+        @media (max-width: 576px) {
+            .mobile-header .logo h1 {
+                font-size: 0.95rem;
+            }
+            
+            .main-content {
+                padding: 12px 10px;
+            }
+            
+            .rank-dashboard {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+            
+            .stat-item {
+                padding: 10px;
+            }
+            
+            .theory-card {
+                padding: 15px;
+            }
+            
+            .text-en {
+                font-size: 1.2rem;
+                min-height: 60px;
+            }
+            
+            .text-es {
+                font-size: 1rem;
+            }
+            
+            .control-panel {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+            
+            .btn {
+                padding: 12px 4px;
+                font-size: 0.75rem;
+                min-height: 60px;
+            }
+            
+            .btn i {
+                font-size: 1rem;
+                margin-bottom: 3px;
+            }
+            
+            .btn:nth-child(3), .btn:nth-child(4), .btn:nth-child(5) {
+                grid-column: span 2;
+            }
+            
+            .score-circle {
+                font-size: 2.2rem;
+            }
+            
+            .transcript-visual {
+                font-size: 0.95rem;
+                padding: 8px;
+            }
+            
+            .admin-console {
+                margin-top: 30px;
+                padding-top: 20px;
+            }
+            
+            .admin-title {
+                font-size: 1.1rem;
+            }
+            
+            .admin-actions {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        /* MÓVILES MUY PEQUEÑOS (hasta 360px) */
+        @media (max-width: 360px) {
+            .mobile-header {
+                padding: 10px 12px;
+            }
+            
+            .main-content {
+                padding: 10px 8px;
+            }
+            
+            .text-en {
+                font-size: 1.1rem;
+            }
+            
+            .text-es {
+                font-size: 0.95rem;
+            }
+            
+            .btn {
+                padding: 10px 2px;
+                font-size: 0.7rem;
+                min-height: 55px;
+            }
+            
+            .btn i {
+                font-size: 0.9rem;
+            }
+            
+            .practice-frame {
+                padding: 15px 10px;
+            }
+            
+            .theory-card {
+                padding: 12px;
+            }
+        }
+        
+        /* ORIENTACIÓN HORIZONTAL EN MÓVILES */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .app-container {
+                flex-direction: row;
+            }
+            
+            .sidebar-desktop {
+                width: 280px;
+                max-height: 100vh;
+                border-right: 2px solid var(--m-green);
+                border-bottom: none;
+            }
+            
+            .mobile-header {
+                display: none;
+            }
+            
+            .main-content {
+                padding: 15px;
+            }
+            
+            .text-en {
+                font-size: 1.3rem;
+                min-height: 60px;
+            }
+            
+            .text-es {
+                font-size: 1rem;
+                min-height: 40px;
+            }
+        }
+        
+        /* IMPRESIÓN */
+        @media print {
+            .mobile-header, .sidebar-desktop, .control-panel, .admin-console {
+                display: none !important;
+            }
+            
+            .main-content {
+                padding: 0;
+            }
+            
+            .practice-frame {
+                border: 1px solid #000;
+                box-shadow: none;
+            }
+            
+            .text-en, .text-es {
+                color: #000;
+                background: none;
+                border: none;
+            }
+        }
     </style>
 </head>
 <body>
-
-<div id="sidebar">
-    <div class="sidebar-header">
-        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/The_Matrix_stylized_logo.svg/1200px-The_Matrix_stylized_logo.svg.png" width="150" style="filter: invert(1); margin-bottom: 10px;"><br>
-        NEURAL TRAINING INTERFACE
-    </div>
-    <div id="chapter-list"></div>
-</div>
-
-<div id="main-content">
-    <div class="rank-dashboard">
-        <div class="stat-item">RANGO NEURONAL<br><span class="stat-val" id="rank-val">BATTERY</span></div>
-        <div class="stat-item">PRECISIÓN TOTAL<br><span class="stat-val" id="accuracy-val">0%</span></div>
-        <div class="stat-item">UNIDADES DOMINADAS<br><span class="stat-val" id="mastered-val">0</span></div>
+    <!-- HEADER MÓVIL -->
+    <div class="mobile-header">
+        <div class="logo">
+            <i class="fas fa-matrix" style="color: var(--m-green); font-size: 1.5rem;"></i>
+            <h1>MATRIX ENGLISH MASTER</h1>
+        </div>
+        <button class="menu-toggle" id="menuToggle">
+            <i class="fas fa-bars"></i>
+        </button>
     </div>
 
-    <div id="active-lesson">
-        <div class="theory-card" id="theory-display">Selecciona un módulo para iniciar.</div>
-
-        <div class="practice-frame">
-            <div class="unit-counter" id="unit-info">UNIT: 0 / 0</div>
-            <div class="char-label">ACTIVE EXERCISE</div>
-            <div class="text-en" id="display-en">Choose a chapter from the sidebar.</div>
-            <div class="text-es" id="display-es">Selecciona un capítulo en la barra lateral.</div>
+    <div class="app-container">
+        <!-- SIDEBAR PARA DESKTOP -->
+        <div class="sidebar-desktop" id="sidebarDesktop">
+            <div class="sidebar-header">
+                <h2><i class="fas fa-brain"></i> NEURAL TRAINING INTERFACE</h2>
+                <div class="subtitle">Betty Azar Grammar System</div>
+            </div>
             
-            <div class="evaluation-zone">
-                <div id="diff-visual">...</div>
-                <div class="score-circle" id="score-val">--</div>
-                <div class="transcript-visual" id="transcript-txt">Neural Link: Standby</div>
+            <div class="chapter-list-container">
+                <!-- Capítulos se generarán dinámicamente -->
+                <div id="chapterList"></div>
+            </div>
+            
+            <div style="padding: 20px; text-align: center; border-top: 1px solid var(--m-border);">
+                <div style="font-size: 0.8rem; color: var(--m-blue); margin-bottom: 10px;">
+                    <i class="fas fa-database"></i> Total Units: <span id="totalUnits">0</span>
+                </div>
+                <div style="font-size: 0.8rem; color: var(--m-yellow);">
+                    <i class="fas fa-trophy"></i> Mastered: <span id="masteredUnits">0</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENIDO PRINCIPAL -->
+        <div class="main-content">
+            <!-- DASHBOARD DE ESTADÍSTICAS -->
+            <div class="rank-dashboard">
+                <div class="stat-item">
+                    <span class="stat-label">RANGO NEURONAL</span>
+                    <span class="stat-val" id="rankVal">BATTERY</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">PRECISIÓN TOTAL</span>
+                    <span class="stat-val" id="accuracyVal">0%</span>
+                </div>
+                <div class="stat-item">
+                    <span class="stat-label">UNIDADES DOMINADAS</span>
+                    <span class="stat-val" id="masteredVal">0</span>
+                </div>
             </div>
 
-            <div class="control-panel">
-                <button class="btn" onclick="move(-1)">« Ant.</button>
-                <button class="btn" onclick="speak()">🔊 Oír</button>
-                <button class="btn btn-rec" id="recBtn" onclick="record()">🎙️ Grabar</button>
-                <button class="btn" id="autoBtn" onclick="toggleAuto()">Auto</button>
-                <button class="btn" onclick="move(1)">Sig. »</button>
+            <!-- TARJETA DE TEORÍA -->
+            <div class="theory-card" id="theoryDisplay">
+                <strong>SUBTEMA: 1-1 Simple Present</strong>
+                <div class="theory-content" id="theoryContent">
+                    Selecciona un capítulo para comenzar tu entrenamiento en la Matrix.
+                </div>
+            </div>
+
+            <!-- ÁREA DE PRÁCTICA -->
+            <div class="practice-frame">
+                <div class="unit-counter" id="unitInfo">UNIT: 0 / 0</div>
+                <div class="char-label">ACTIVE EXERCISE</div>
+                
+                <div class="text-en" id="displayEn">
+                    Choose a chapter from the sidebar to start.
+                </div>
+                <div class="text-es" id="displayEs">
+                    Selecciona un capítulo para comenzar.
+                </div>
+                
+                <!-- ZONA DE EVALUACIÓN -->
+                <div class="evaluation-zone">
+                    <div class="diff-visual" id="diffVisual">...</div>
+                    <div class="score-circle" id="scoreVal">--</div>
+                    <div class="transcript-visual" id="transcriptTxt">
+                        Neural Link: Standby
+                    </div>
+                </div>
+
+                <!-- PANEL DE CONTROL -->
+                <div class="control-panel">
+                    <button class="btn" id="btnPrev" onclick="move(-1)">
+                        <i class="fas fa-arrow-left"></i> Ant.
+                    </button>
+                    <button class="btn" id="btnPlay" onclick="speak()">
+                        <i class="fas fa-volume-up"></i> Oír
+                    </button>
+                    <button class="btn btn-rec" id="btnRec" onclick="record()">
+                        <i class="fas fa-microphone"></i> Grabar
+                    </button>
+                    <button class="btn btn-auto" id="btnAuto" onclick="toggleAuto()">
+                        <i class="fas fa-robot"></i> Auto
+                    </button>
+                    <button class="btn" id="btnNext" onclick="move(1)">
+                        <i class="fas fa-arrow-right"></i> Sig.
+                    </button>
+                </div>
+            </div>
+
+            <!-- CONSOLA DE ADMINISTRACIÓN -->
+            <div class="admin-console">
+                <div class="admin-title">
+                    <i class="fas fa-terminal"></i> DATA TERMINAL - GESTIÓN DE LA MATRIX
+                </div>
+                
+                <div class="admin-grid">
+                    <div class="admin-input-group">
+                        <label for="inSub"><i class="fas fa-tag"></i> SUBTEMA</label>
+                        <input type="text" id="inSub" placeholder="Ej: 2-4 Irregular Verbs">
+                    </div>
+                    
+                    <div class="admin-input-group">
+                        <label for="inTheory"><i class="fas fa-book"></i> REGLA GRAMATICAL</label>
+                        <textarea id="inTheory" placeholder="Describe la regla gramatical..."></textarea>
+                    </div>
+                    
+                    <div class="admin-input-group">
+                        <label for="inEn"><i class="fas fa-language"></i> FRASE EN INGLÉS</label>
+                        <textarea id="inEn" placeholder="Escribe la frase en inglés..."></textarea>
+                    </div>
+                    
+                    <div class="admin-input-group">
+                        <label for="inEs"><i class="fas fa-flag"></i> TRADUCCIÓN ESPAÑOL</label>
+                        <textarea id="inEs" placeholder="Escribe la traducción en español..."></textarea>
+                    </div>
+                    
+                    <div class="admin-actions">
+                        <button class="btn btn-admin" onclick="addNew()">
+                            <i class="fas fa-plus-circle"></i> INYECTAR DATOS
+                        </button>
+                        <button class="btn btn-admin btn-export" onclick="exportData()">
+                            <i class="fas fa-download"></i> EXPORTAR BACKUP
+                        </button>
+                        <button class="btn btn-admin btn-reset" onclick="resetAll()">
+                            <i class="fas fa-trash-alt"></i> RESETEAR MATRIX
+                        </button>
+                        <button class="btn btn-admin" onclick="importData()">
+                            <i class="fas fa-upload"></i> IMPORTAR DATOS
+                        </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 
-    <div class="admin-console">
-        <h3 style="color:#fff;">[DATA TERMINAL] GESTIÓN DE LA MATRIX</h3>
-        <div class="admin-grid">
-            <div>
-                <input type="text" id="in-sub" placeholder="SUBTEMA (Ej: 2-4 Irregular Verbs)">
-                <textarea id="in-theory" rows="2" placeholder="REGLA GRAMATICAL"></textarea>
-                <textarea id="in-en" rows="2" placeholder="FRASE EN INGLÉS"></textarea>
-                <textarea id="in-es" rows="2" placeholder="TRADUCCIÓN ESPAÑOL"></textarea>
-                <button class="btn" style="width:100%" onclick="addNew()">+ INYECTAR DATOS</button>
-            </div>
-            <div>
-                <p style="font-size: 0.7em;">ACCIONES GLOBALES:</p>
-                <button class="btn" style="width:100%; border-color: gold; color: gold; margin-bottom:10px;" onclick="exportData()">EXPORTAR BACKUP (.JSON)</button>
-                <button class="btn" style="width:100%; border-color: red; color: red;" onclick="resetAll()">RESETEAR MATRIX</button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script>
-    // --- LA GRAN BASE DE DATOS (25 EJEMPLOS POR CAPÍTULO) ---
-    const rawData = {
-        "Capítulo 1: Present Time": [
-            { sub: "1-1 Simple Present", theory: "Acciones habituales.", en: "I study every morning.", es: "Estudio cada mañana.", score: 0 },
-            { sub: "1-1 Simple Present", theory: "Verdades de la naturaleza.", en: "Water boils at 100 degrees.", es: "El agua hierve a 100 grados.", score: 0 },
-            { sub: "1-1 Present Progressive", theory: "Acciones ocurriendo ahora.", en: "I am writing a letter right now.", es: "Estoy escribiendo una carta ahora mismo.", score: 0 },
-            { sub: "1-2 Forms", theory: "Tercera persona singular lleva -s.", en: "She works in a bank.", es: "Ella trabaja en un banco.", score: 0 },
-            { sub: "1-3 Adverbs", theory: "Always (Siempre) va antes del verbo.", en: "I always drink coffee.", es: "Siempre bebo café.", score: 0 },
-            { sub: "1-3 Adverbs", theory: "Never (Nunca).", en: "It never snows here.", es: "Nunca nieva aquí.", score: 0 },
-            { sub: "1-4 Plurals", theory: "Sustantivos en plural.", en: "The students are in class.", es: "Los estudiantes están en clase.", score: 0 },
-            { sub: "1-5 Spelling", theory: "Verbos terminados en CH.", en: "He watches television every night.", es: "Él ve televisión cada noche.", score: 0 },
-            { sub: "1-6 Non-action", theory: "Verbos de estado: Know.", en: "I know your brother.", es: "Conozco a tu hermano.", score: 0 },
-            { sub: "1-6 Non-action", theory: "Verbos de estado: Want.", en: "I want to learn English.", es: "Quiero aprender inglés.", score: 0 },
-            { sub: "1-7 Short Answers", theory: "Respuestas cortas con Do.", en: "Yes, I do.", es: "Sí.", score: 0 },
-            { sub: "1-7 Short Answers", theory: "Respuestas cortas con Be.", en: "No, he isn't.", es: "No, él no lo es.", score: 0 },
-            { sub: "1-3 Frequency", theory: "Usually (Usualmente).", en: "I usually go to bed at ten.", es: "Usualmente me voy a la cama a las diez.", score: 0 },
-            { sub: "1-4 Singular", theory: "Persona (Sujeto).", en: "The girl sings well.", es: "La niña canta bien.", score: 0 },
-            { sub: "1-6 Senses", theory: "Verbo Oír (Hear).", en: "I hear the music.", es: "Oigo la música.", score: 0 },
-            { sub: "1-6 Thinking", theory: "Verbo Creer (Believe).", en: "I believe you.", es: "Te creo.", score: 0 },
-            { sub: "1-1 Progressive", theory: "Pregunta actual.", en: "Are you listening to me?", es: "¿Me estás escuchando?", score: 0 },
-            { sub: "1-3 Adverbs", theory: "Hardly ever (Casi nunca).", en: "I hardly ever go out.", es: "Casi nunca salgo.", score: 0 },
-            { sub: "1-5 Spelling", theory: "Verbo Ir (Go).", en: "She goes to school.", es: "Ella va a la escuela.", score: 0 },
-            { sub: "1-6 Needs", theory: "Necesidad (Need).", en: "I need some help.", es: "Necesito algo de ayuda.", score: 0 },
-            { sub: "1-1 Habits", theory: "Rutina diaria.", en: "He brushes his teeth.", es: "Él se cepilla los dientes.", score: 0 },
-            { sub: "1-3 Position", theory: "Adverbio con el verbo BE.", en: "He is often late.", es: "Él llega tarde a menudo.", score: 0 },
-            { sub: "1-6 Feelings", theory: "Gustar (Like).", en: "I like this book.", es: "Me gusta este libro.", score: 0 },
-            { sub: "1-7 Questions", theory: "Pregunta de hábito.", en: "Does it rain in winter?", es: "¿Llueve en invierno?", score: 0 },
-            { sub: "1-4 Nouns", theory: "Plural Irregular: Children.", en: "The children are happy.", es: "Los niños son felices.", score: 0 }
-        ],
-        "Capítulo 2: Past Time": [
-            { sub: "2-1 Simple Past", theory: "Acción terminada.", en: "I walked home yesterday.", es: "Caminé a casa ayer.", score: 0 },
-            { sub: "2-1 Past BE", theory: "Was (Era/Estaba).", en: "The weather was nice.", es: "El clima estaba agradable.", score: 0 },
-            { sub: "2-1 Past BE", theory: "Were (Eran/Estaban).", en: "The shops were closed.", es: "Las tiendas estaban cerradas.", score: 0 },
-            { sub: "2-2 Spelling", theory: "Doblar consonante (Stop).", en: "He stopped the car.", es: "Él detuvo el auto.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Verbo Comer (Eat-Ate).", en: "I ate an apple.", es: "Comí una manzana.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Verbo Ver (See-Saw).", en: "I saw a movie.", es: "Vi una película.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Verbo Ir (Go-Went).", en: "They went to Paris.", es: "Fueron a París.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Verbo Comprar (Buy-Bought).", en: "I bought a new phone.", es: "Compré un teléfono nuevo.", score: 0 },
-            { sub: "2-1 Negative", theory: "Uso de Didn't.", en: "I didn't see you.", es: "No te vi.", score: 0 },
-            { sub: "2-1 Questions", theory: "Pregunta con Did.", en: "Did you sleep well?", es: "¿Dormiste bien?", score: 0 },
-            { sub: "2-6 Past Progressive", theory: "Acción en curso en el pasado.", en: "I was sleeping at midnight.", es: "Estaba durmiendo a medianoche.", score: 0 },
-            { sub: "2-6 Interruption", theory: "Interrupción con When.", en: "I was eating when she called.", es: "Estaba comiendo cuando ella llamó.", score: 0 },
-            { sub: "2-7 While", theory: "Acciones paralelas.", en: "While I was studying, he was cooking.", es: "Mientras yo estudiaba, él cocinaba.", score: 0 },
-            { sub: "2-7 Time Clauses", theory: "Antes de (Before).", en: "I washed my hands before I ate.", es: "Me lavé las manos antes de comer.", score: 0 },
-            { sub: "2-7 Time Clauses", theory: "Después de (After).", en: "I went to bed after I finished.", es: "Me fui a la cama después de terminar.", score: 0 },
-            { sub: "2-8 Used To", theory: "Hábito del pasado.", en: "I used to play the piano.", es: "Solía tocar el piano.", score: 0 },
-            { sub: "2-8 Negative Used To", theory: "Ya no lo hago.", en: "I didn't use to like coffee.", es: "No me solía gustar el café.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Verbo Tener (Have-Had).", en: "I had a busy day.", es: "Tuve un día ocupado.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Verbo Escribir (Write-Wrote).", en: "She wrote a long email.", es: "Ella escribió un correo largo.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Verbo Beber (Drink-Drank).", en: "He drank all the juice.", es: "Él se bebió todo el jugo.", score: 0 },
-            { sub: "2-1 Past BE", theory: "Negativo (Wasn't).", en: "The test wasn't difficult.", es: "El examen no fue difícil.", score: 0 },
-            { sub: "2-1 Questions BE", theory: "Pregunta de estado.", en: "Were you happy?", es: "¿Eras feliz?", score: 0 },
-            { sub: "2-7 Until", theory: "Hasta que.", en: "I waited until it stopped raining.", es: "Esperé hasta que dejó de llover.", score: 0 },
-            { sub: "2-7 As soon as", theory: "Tan pronto como.", en: "I called him as soon as I arrived.", es: "Le llamé tan pronto como llegué.", score: 0 },
-            { sub: "2-5 Pronunciation", theory: "Sonido /id/ (Needed).", en: "I needed some water.", es: "Necesité algo de agua.", score: 0 }
-        ],
-        "Capítulo 3: Future Time": [
-            { sub: "3-1 Be going to", theory: "Planes futuros.", en: "I am going to visit my aunt.", es: "Voy a visitar a mi tía.", score: 0 },
-            { sub: "3-1 Will", theory: "Predicción.", en: "It will snow tomorrow.", es: "Nevará mañana.", score: 0 },
-            { sub: "3-2 Negative", theory: "Not going to.", en: "I am not going to stay.", es: "No me voy a quedar.", score: 0 },
-            { sub: "3-3 Will Decision", theory: "Decisión espontánea.", en: "I will help you with that.", es: "Te ayudaré con eso.", score: 0 },
-            { sub: "3-4 Certainty", theory: "Certeza (Probably).", en: "He will probably be late.", es: "Él probablemente llegará tarde.", score: 0 },
-            { sub: "3-4 Maybe", theory: "Posibilidad (50%).", en: "Maybe it will rain.", es: "Tal vez llueva.", score: 0 },
-            { sub: "3-6 Time Clauses", theory: "Uso del presente.", en: "Before I go home, I will stop at the market.", es: "Antes de ir a casa, pasaré por el mercado.", score: 0 },
-            { sub: "3-6 If Clause", theory: "Condición futura.", en: "If I have time, I will call you.", es: "Si tengo tiempo, te llamaré.", score: 0 },
-            { sub: "3-7 Present Progressive", theory: "Planes confirmados.", en: "I am flying to New York tonight.", es: "Vuelo a Nueva York esta noche.", score: 0 },
-            { sub: "3-8 Present Simple", theory: "Horarios fijos.", en: "The train leaves at eight.", es: "El tren sale a las ocho.", score: 0 },
-            { sub: "3-9 Be about to", theory: "Futuro inminente.", en: "The movie is about to start.", es: "La película está a punto de empezar.", score: 0 },
-            { sub: "3-10 Parallel", theory: "Dos acciones.", en: "I will eat and then study.", es: "Comeré y luego estudiaré.", score: 0 },
-            { sub: "3-3 Promise", theory: "Promesa.", en: "I will always love you.", es: "Siempre te amaré.", score: 0 },
-            { sub: "3-4 May", theory: "Posibilidad (May).", en: "It may be a nice day.", es: "Puede que sea un buen día.", score: 0 },
-            { sub: "3-6 After", theory: "Cláusula con After.", en: "After I finish, I'm going to sleep.", es: "Después de terminar, voy a dormir.", score: 0 },
-            { sub: "3-1 Prediction", theory: "Opinión.", en: "I think you will win.", es: "Creo que ganarás.", score: 0 },
-            { sub: "3-2 Questions", theory: "Pregunta de planes.", en: "What are you going to do?", es: "¿Qué vas a hacer?", score: 0 },
-            { sub: "3-3 Won't", theory: "Negación (Will not).", en: "I won't be late.", es: "No llegaré tarde.", score: 0 },
-            { sub: "3-6 Until", theory: "Hasta.", en: "I'll stay until the rain stops.", es: "Me quedaré hasta que la lluvia pare.", score: 0 },
-            { sub: "3-6 As soon as", theory: "Inmediatez.", en: "I'll tell him as soon as I see him.", es: "Se lo diré en cuanto le vea.", score: 0 },
-            { sub: "3-1 Future", theory: "Mañana.", en: "I am going to work tomorrow.", es: "Voy a trabajar mañana.", score: 0 },
-            { sub: "3-4 Probably", theory: "Probabilidad negativa.", en: "She probably won't come.", es: "Ella probablemente no vendrá.", score: 0 },
-            { sub: "3-9 Immediate", theory: "Salida.", en: "I'm about to leave.", es: "Estoy a punto de irme.", score: 0 },
-            { sub: "3-2 Informal", theory: "Gonna.", en: "I'm gonna learn English.", es: "Voy a aprender inglés.", score: 0 },
-            { sub: "3-5 Plan", theory: "Intención.", en: "I'm going to paint my room.", es: "Voy a pintar mi cuarto.", score: 0 }
-        ],
-        "Capítulo 4: Present Perfect": [
-            { sub: "4-1 Participle", theory: "Participio Regular (-ed).", en: "I have lived here for a year.", es: "He vivido aquí por un año.", score: 0 },
-            { sub: "4-1 Participle", theory: "Participio Irregular (Seen).", en: "I have seen that movie twice.", es: "He visto esa película dos veces.", score: 0 },
-            { sub: "4-2 Since", theory: "Punto de inicio.", en: "I have been here since ten o'clock.", es: "He estado aquí desde las diez.", score: 0 },
-            { sub: "4-2 For", theory: "Duración.", en: "We have known him for ten years.", es: "Le conocemos desde hace diez años.", score: 0 },
-            { sub: "4-3 Ever", theory: "¿Alguna vez?", en: "Have you ever been to Japan?", es: "¿Has estado alguna vez en Japón?", score: 0 },
-            { sub: "4-3 Never", theory: "Experiencia negativa.", en: "I have never eaten snails.", es: "Nunca he comido caracoles.", score: 0 },
-            { sub: "4-4 Just", theory: "Acaba de ocurrir.", en: "I have just finished my lunch.", es: "Acabo de terminar mi almuerzo.", score: 0 },
-            { sub: "4-4 Recently", theory: "Recientemente.", en: "He has recently changed jobs.", es: "Él ha cambiado de trabajo recientemente.", score: 0 },
-            { sub: "4-4 Already", theory: "Ya ocurrió.", en: "I have already seen it.", es: "Ya lo he visto.", score: 0 },
-            { sub: "4-4 Yet", theory: "Aún no.", en: "I haven't finished yet.", es: "No he terminado aún.", score: 0 },
-            { sub: "4-6 Progressive", theory: "Acción continua.", en: "It has been raining all day.", es: "Ha estado lloviendo todo el día.", score: 0 },
-            { sub: "4-6 Progressive", theory: "Desde las 9:00.", en: "I've been sitting here since nine.", es: "He estado sentado aquí desde las nueve.", score: 0 },
-            { sub: "4-8 Past Perfect", theory: "Pasado del pasado.", en: "He had left when I arrived.", es: "Él se había ido cuando llegué.", score: 0 },
-            { sub: "4-8 Past Perfect", theory: "Antes de ayer.", en: "I had already eaten before the meeting.", es: "Ya había comido antes de la reunión.", score: 0 },
-            { sub: "4-1 Participle", theory: "Written (Escrito).", en: "I have written a poem.", es: "He escrito un poema.", score: 0 },
-            { sub: "4-1 Participle", theory: "Done (Hecho).", en: "I have done my homework.", es: "He hecho mi tarea.", score: 0 },
-            { sub: "4-3 Experience", theory: "Varias veces.", en: "I have been to Paris many times.", es: "He estado en París muchas veces.", score: 0 },
-            { sub: "4-4 Unspecified", theory: "Tiempo no mencionado.", en: "Someone has stolen my bike.", es: "Alguien ha robado mi bici.", score: 0 },
-            { sub: "4-5 Past vs Perfect", theory: "Ayer (Past).", en: "I lost my keys yesterday.", es: "Perdí mis llaves ayer.", score: 0 },
-            { sub: "4-6 Continuous", theory: "Haciendo algo.", en: "What have you been doing?", es: "¿Qué has estado haciendo?", score: 0 },
-            { sub: "4-8 Before", theory: "Pasado perfecto.", en: "I had never seen a lion before.", es: "Nunca antes había visto un león.", score: 0 },
-            { sub: "4-2 Cláusula", theory: "Since + Past.", en: "I have lived here since I was a child.", es: "He vivido aquí desde que era niño.", score: 0 },
-            { sub: "4-4 Yet Question", theory: "Pregunta con Yet.", en: "Have you eaten yet?", es: "¿Has comido ya?", score: 0 },
-            { sub: "4-6 Duration", theory: "Por dos horas.", en: "They have been talking for two hours.", es: "Han estado hablando por dos horas.", score: 0 },
-            { sub: "4-1 Irregular", theory: "Bought (Comprado).", en: "She has bought a new car.", es: "Ella ha comprado un coche nuevo.", score: 0 }
-        ],
-        "Capítulo 5: Asking Questions": [
-            { sub: "5-1 Yes/No", theory: "Pregunta simple.", en: "Do you need help?", es: "¿Necesitas ayuda?", score: 0 },
-            { sub: "5-2 Information", theory: "Lugar (Where).", en: "Where do you live?", es: "¿Dónde vives?", score: 0 },
-            { sub: "5-2 Information", theory: "Tiempo (When).", en: "When is your birthday?", es: "¿Cuándo es tu cumpleaños?", score: 0 },
-            { sub: "5-3 Time", theory: "Hora (What time).", en: "What time does the class start?", es: "¿A qué hora empieza la clase?", score: 0 },
-            { sub: "5-3 Reason", theory: "Razón (Why).", en: "Why are you laughing?", es: "¿Por qué te ríes?", score: 0 },
-            { sub: "5-4 Subject", theory: "Who como sujeto.", en: "Who knows the answer?", es: "¿Quién sabe la respuesta?", score: 0 },
-            { sub: "5-4 Object", theory: "Who como objeto.", en: "Who did you meet?", es: "¿A quién conociste?", score: 0 },
-            { sub: "5-5 Activity", theory: "What + Do.", en: "What are you doing?", es: "¿Qué estás haciendo?", score: 0 },
-            { sub: "5-6 Choice", theory: "Elección (Which).", en: "Which color do you prefer?", es: "¿Qué color prefieres?", score: 0 },
-            { sub: "5-6 Kind", theory: "Tipo (What kind).", en: "What kind of music do you like?", es: "¿Qué tipo de música te gusta?", score: 0 },
-            { sub: "5-7 Possession", theory: "Posesión (Whose).", en: "Whose book is this?", es: "¿De quién es este libro?", score: 0 },
-            { sub: "5-8 Transport", theory: "Medio (How).", en: "How did you get here?", es: "¿Cómo llegaste aquí?", score: 0 },
-            { sub: "5-8 Adjective", theory: "Edad (How old).", en: "How old are you?", es: "¿Qué edad tienes?", score: 0 },
-            { sub: "5-9 Frequency", theory: "Frecuencia (How often).", en: "How often do you exercise?", es: "¿Qué tan seguido haces ejercicio?", score: 0 },
-            { sub: "5-10 Distance", theory: "Distancia (How far).", en: "How far is it to London?", es: "¿A qué distancia está Londres?", score: 0 },
-            { sub: "5-11 Duration", theory: "Duración (How long).", en: "How long does the movie last?", es: "¿Cuánto dura la película?", score: 0 },
-            { sub: "5-14 Suggestions", theory: "Sugerencia (How about).", en: "How about a cup of tea?", es: "¿Qué tal una taza de té?", score: 0 },
-            { sub: "5-15 Tags", theory: "Confirmación.", en: "You're a student, aren't you?", es: "Eres estudiante, ¿verdad?", score: 0 },
-            { sub: "5-15 Tags", theory: "Negativo.", en: "He isn't busy, is he?", es: "Él no está ocupado, ¿cierto?", score: 0 },
-            { sub: "5-15 Tags", theory: "Confirmación (Can).", en: "You can swim, can't you?", es: "Sabes nadar, ¿verdad?", score: 0 },
-            { sub: "5-1 Questions", theory: "Con el auxiliar Have.", en: "Have you seen my keys?", es: "¿Has visto mis llaves?", score: 0 },
-            { sub: "5-8 Adverb", theory: "Velocidad (How fast).", en: "How fast can you run?", es: "¿Qué tan rápido puedes correr?", score: 0 },
-            { sub: "5-13 Senses", theory: "¿Cómo te sientes?", en: "How do you feel?", es: "¿Cómo te sientes?", score: 0 },
-            { sub: "5-14 What about", theory: "Sugerencia alternativa.", en: "What about going to the park?", es: "¿Qué tal si vamos al parque?", score: 0 },
-            { sub: "5-12 Contractions", theory: "Habla rápida.", en: "Whaddaya think?", es: "¿Qué piensas?", score: 0 }
-        ],
-        "Capítulo 6: Nouns & Pronouns": [
-            { sub: "6-1 Plurals", theory: "Terminación en ES.", en: "The boxes are heavy.", es: "Las cajas son pesadas.", score: 0 },
-            { sub: "6-1 Irregular", theory: "Diente (Tooth-Teeth).", en: "My teeth are white.", es: "Mis dientes son blancos.", score: 0 },
-            { sub: "6-2 Pronunciation", theory: "Sonido /z/ (Laws).", en: "The laws are fair.", es: "Las leyes son justas.", score: 0 },
-            { sub: "6-3 Subject/Object", theory: "Pronombre objeto (Me).", en: "He called me.", es: "Él me llamó.", score: 0 },
-            { sub: "6-4 Prepositions", theory: "Lugar (On).", en: "The book is on the table.", es: "El libro está en la mesa.", score: 0 },
-            { sub: "6-5 Time Prep.", theory: "Meses (In).", en: "My birthday is in October.", es: "Mi cumple es en octubre.", score: 0 },
-            { sub: "6-6 Word Order", theory: "Lugar antes de tiempo.", en: "I went home at six.", es: "Fui a casa a las seis.", score: 0 },
-            { sub: "6-7 Agreement", theory: "Sujeto-Verbo.", en: "The apples are red.", es: "Las manzanas son rojas.", score: 0 },
-            { sub: "6-7 Every", theory: "Every es singular.", en: "Every student has a book.", es: "Cada estudiante tiene un libro.", score: 0 },
-            { sub: "6-8 Adjectives", theory: "Modifican al nombre.", en: "The tall man is my friend.", es: "El hombre alto es mi amigo.", score: 0 },
-            { sub: "6-9 Noun Adj.", theory: "Nombre como adjetivo.", en: "I have a flower garden.", es: "Tengo un jardín de flores.", score: 0 },
-            { sub: "6-10 Pronouns", theory: "Objeto (Them).", en: "I like them.", es: "Me gustan.", score: 0 },
-            { sub: "6-11 Possessive", theory: "Apóstrofe 'S.", en: "This is Tom's car.", es: "Este es el coche de Tom.", score: 0 },
-            { sub: "6-11 Plural Poss.", theory: "Hermanos (Brothers').", en: "My brothers' names are Sam and Al.", es: "Los nombres de mis hermanos son Sam y Al.", score: 0 },
-            { sub: "6-12 Poss. Adj.", theory: "Mi (My).", en: "This is my pen.", es: "Esta es mi pluma.", score: 0 },
-            { sub: "6-12 Poss. Pron.", theory: "Mío (Mine).", en: "The pen is mine.", es: "La pluma es mía.", score: 0 },
-            { sub: "6-13 Reflexive", theory: "Mismo (Myself).", en: "I saw myself in the mirror.", es: "Me vi en el espejo.", score: 0 },
-            { sub: "6-14 Another", theory: "Otro más.", en: "I want another apple.", es: "Quiero otra manzana.", score: 0 },
-            { sub: "6-15 Others", theory: "Los otros.", en: "Some are red, others are blue.", es: "Algunos son rojos, otros azules.", score: 0 },
-            { sub: "6-3 Object", theory: "Pronombre Her.", en: "I saw her yesterday.", es: "La vi ayer.", score: 0 },
-            { sub: "6-5 Time", theory: "Días (On).", en: "See you on Monday.", es: "Te veo el lunes.", score: 0 },
-            { sub: "6-8 Order", theory: "Dos adjetivos.", en: "A small dark room.", es: "Un cuarto pequeño y oscuro.", score: 0 },
-            { sub: "6-12 Posesivo", theory: "Su de ella (Her).", en: "Her hair is long.", es: "Su cabello es largo.", score: 0 },
-            { sub: "6-13 Reflexivo", theory: "Él mismo (Himself).", en: "He lives by himself.", es: "Él vive solo.", score: 0 },
-            { sub: "6-14 The other", theory: "El otro (específico).", en: "One is big, the other is small.", es: "Uno es grande, el otro pequeño.", score: 0 }
-        ],
-        "Capítulo 7: Modal Auxiliaries": [
-            { sub: "7-2 Ability", theory: "Habilidad (Can).", en: "I can speak English.", es: "Puedo hablar inglés.", score: 0 },
-            { sub: "7-2 Past Ability", theory: "Pasado (Could).", en: "I could swim when I was five.", es: "Podía nadar cuando tenía cinco.", score: 0 },
-            { sub: "7-3 Possibility", theory: "Posibilidad (May).", en: "It may rain today.", es: "Puede que llueva hoy.", score: 0 },
-            { sub: "7-3 Permission", theory: "Permiso formal.", en: "May I borrow your pen?", es: "¿Me presta su pluma?", score: 0 },
-            { sub: "7-4 Possibility", theory: "Cierta posibilidad (Could).", en: "It could be true.", es: "Podría ser cierto.", score: 0 },
-            { sub: "7-5 Polite Quest.", theory: "Pregunta cortés (Can I).", en: "Can I help you?", es: "¿Puedo ayudarle?", score: 0 },
-            { sub: "7-6 Polite Request", theory: "Petición (Would you).", en: "Would you please open the door?", es: "¿Podría abrir la puerta, por favor?", score: 0 },
-            { sub: "7-7 Advice", theory: "Consejo (Should).", en: "You should study harder.", es: "Deberías estudiar más.", score: 0 },
-            { sub: "7-8 Advice", theory: "Consejo urgente (Had better).", en: "You had better see a doctor.", es: "Más vale que veas a un médico.", score: 0 },
-            { sub: "7-9 Necessity", theory: "Obligación (Have to).", en: "I have to go now.", es: "Tengo que irme ahora.", score: 0 },
-            { sub: "7-9 Necessity", theory: "Obligación fuerte (Must).", en: "You must stop at the red light.", es: "Debes parar en la luz roja.", score: 0 },
-            { sub: "7-10 Lack of Nec.", theory: "No es necesario.", en: "You don't have to go.", es: "No tienes que ir.", score: 0 },
-            { sub: "7-10 Prohibition", theory: "Prohibido (Must not).", en: "You must not smoke here.", es: "No debes fumar aquí.", score: 0 },
-            { sub: "7-11 Logic", theory: "Conclusión lógica.", en: "She is yawning. She must be sleepy.", es: "Bosteza. Debe tener sueño.", score: 0 },
-            { sub: "7-12 Tags", theory: "Tags con Modales.", en: "You can come, can't you?", es: "Puedes venir, ¿verdad?", score: 0 },
-            { sub: "7-13 Imperative", theory: "Instrucción.", en: "Close the window.", es: "Cierra la ventana.", score: 0 },
-            { sub: "7-14 Suggestions", theory: "Sugestión (Let's).", en: "Let's go to the beach.", es: "Vamos a la playa.", score: 0 },
-            { sub: "7-15 Preference", theory: "Preferencia (Rather).", en: "I would rather stay home.", es: "Preferiría quedarme en casa.", score: 0 },
-            { sub: "7-5 Cortesia", theory: "Petición (Could you).", en: "Could you tell me the time?", es: "¿Podría decirme la hora?", score: 0 },
-            { sub: "7-7 Consejo", theory: "Ought to.", en: "You ought to eat more fruit.", es: "Deberías comer más fruta.", score: 0 },
-            { sub: "7-9 Obligación", theory: "Have got to.", en: "I've got to study tonight.", es: "Tengo que estudiar esta noche.", score: 0 },
-            { sub: "7-11 Deducción", theory: "Must not (Lógica).", en: "He must not like meat.", es: "No le debe gustar la carne.", score: 0 },
-            { sub: "7-14 Sugerencia", theory: "Why don't we.", en: "Why don't we see a movie?", es: "¿Por qué no vemos una peli?", score: 0 },
-            { sub: "7-15 Preferir", theory: "Preferir A sobre B.", en: "I prefer tea to coffee.", es: "Prefiero el té al café.", score: 0 },
-            { sub: "7-13 Negativo", theory: "Imperativo negativo.", en: "Don't be late.", es: "No llegues tarde.", score: 0 }
-        ],
-        "Capítulo 8: Connecting Ideas": [
-            { sub: "8-1 And", theory: "Unión simple.", en: "I saw a cat and a dog.", es: "Vi un gato y un perro.", score: 0 },
-            { sub: "8-2 But", theory: "Contraste.", en: "I am tired but happy.", es: "Estoy cansado pero feliz.", score: 0 },
-            { sub: "8-2 Or", theory: "Elección.", en: "Do you want tea or coffee?", es: "¿Quieres té o café?", score: 0 },
-            { sub: "8-3 So", theory: "Resultado.", en: "It was dark, so I turned on the light.", es: "Estaba oscuro, así que encendí la luz.", score: 0 },
-            { sub: "8-6 Because", theory: "Razón.", en: "He ate because he was hungry.", es: "Comió porque tenía hambre.", score: 0 },
-            { sub: "8-7 Even though", theory: "Concesión.", en: "I went out even though it was raining.", es: "Salí aunque estaba lloviendo.", score: 0 },
-            { sub: "8-1 Series", theory: "Lista de tres.", en: "I bought milk, bread, and eggs.", es: "Compré leche, pan y huevos.", score: 0 },
-            { sub: "8-4 Auxiliaries", theory: "Uso de 'Does' tras But.", en: "I don't like coffee, but my husband does.", es: "A mí no me gusta el café, pero a mi esposo sí.", score: 0 },
-            { sub: "8-5 Too", theory: "También (final).", en: "I am hungry, and Tom is too.", es: "Tengo hambre, y Tom también.", score: 0 },
-            { sub: "8-5 So am I", theory: "También yo (inicio).", en: "I am tired. So am I.", es: "Estoy cansado. Yo también.", score: 0 },
-            { sub: "8-5 Either", theory: "Tampoco (final).", en: "I don't swim, and Joe doesn't either.", es: "Yo no nado, y Joe tampoco.", score: 0 },
-            { sub: "8-5 Neither", theory: "Tampoco yo (inicio).", en: "I'm not hungry. Neither am I.", es: "No tengo hambre. Ni yo.", score: 0 },
-            { sub: "8-6 Adverb Clause", theory: "Porque (inicio).", en: "Because I was tired, I went to bed.", es: "Como estaba cansado, me fui a dormir.", score: 0 },
-            { sub: "8-7 Although", theory: "Aunque.", en: "Although he is rich, he is unhappy.", es: "Aunque es rico, es infeliz.", score: 0 },
-            { sub: "8-2 Contrast", theory: "Oposición.", en: "The movie was long but interesting.", es: "La película fue larga pero interesante.", score: 0 },
-            { sub: "8-3 Result", theory: "Conclusión.", en: "I was sick, so I stayed home.", es: "Estaba enfermo, así que me quedé en casa.", score: 0 },
-            { sub: "8-1 Addition", theory: "Suma.", en: "She is smart and beautiful.", es: "Ella es lista y hermosa.", score: 0 },
-            { sub: "8-5 Agreement", theory: "Yo también (Can).", en: "I can dance. So can I.", es: "Sé bailar. Yo también.", score: 0 },
-            { sub: "8-5 Tampoco", theory: "Ni yo (Have).", en: "I haven't seen it. Neither have I.", es: "No lo he visto. Ni yo.", score: 0 },
-            { sub: "8-6 Causa", theory: "Causa.", en: "She's crying because she's sad.", es: "Llora porque está triste.", score: 0 },
-            { sub: "8-7 Oposición", theory: "Oposición.", en: "She failed even though she studied.", es: "Reprobó aunque estudió.", score: 0 },
-            { sub: "8-2 Opciones", theory: "Opciones.", en: "Is he a doctor or a nurse?", es: "¿Él es doctor o enfermero?", score: 0 },
-            { sub: "8-4 Respuestas", theory: "Respuestas cortas.", en: "They can't go, but we can.", es: "Ellos no pueden ir, pero nosotros sí.", score: 0 },
-            { sub: "8-1 Sujeto", theory: "Sujeto doble.", en: "My mom and dad are here.", es: "Mi mamá y papá están aquí.", score: 0 },
-            { sub: "8-3 Consecuencia", theory: "Consecuencia.", en: "I forgot my wallet, so I have no money.", es: "Olvidé mi cartera, así que no tengo dinero.", score: 0 }
-        ],
-        "Capítulo 9: Comparisons": [
-            { sub: "9-1 As...As", theory: "Igualdad.", en: "I am as tall as my brother.", es: "Soy tan alto como mi hermano.", score: 0 },
-            { sub: "9-2 Comparative", theory: "Er (Cortos).", en: "An elephant is larger than a dog.", es: "Un elefante es más grande que un perro.", score: 0 },
-            { sub: "9-2 Comparative", theory: "More (Largos).", en: "Health is more important than money.", es: "La salud es más importante que el dinero.", score: 0 },
-            { sub: "9-2 Superlative", theory: "Est (Cortos).", en: "The Nile is the longest river.", es: "El Nilo es el río más largo.", score: 0 },
-            { sub: "9-2 Superlative", theory: "Most (Largos).", en: "This is the most interesting book.", es: "Este es el libro más interesante.", score: 0 },
-            { sub: "9-3 Irregular", theory: "Good - Better - Best.", en: "This cake is the best.", es: "Este pastel es el mejor.", score: 0 },
-            { sub: "9-3 Irregular", theory: "Bad - Worse - Worst.", en: "The weather is worse today.", es: "El clima está peor hoy.", score: 0 },
-            { sub: "9-5 Modifiers", theory: "Much (Mucho más).", en: "Tokyo is much bigger than Kyoto.", es: "Tokio es mucho más grande que Kioto.", score: 0 },
-            { sub: "9-5 Modifiers", theory: "A little (Un poco).", en: "He is a little older than me.", es: "Él es un poco mayor que yo.", score: 0 },
-            { sub: "9-6 Less", theory: "Menos que.", en: "A pen is less expensive than a watch.", es: "Una pluma es menos cara que un reloj.", score: 0 },
-            { sub: "9-8 Repeating", theory: "Progresión.", en: "It is getting harder and harder.", es: "Se está poniendo cada vez más difícil.", score: 0 },
-            { sub: "9-9 Double Comp.", theory: "Cuanto más... más...", en: "The harder you study, the more you learn.", es: "Cuanto más estudias, más aprendes.", score: 0 },
-            { sub: "9-11 Alike", theory: "Parecidos.", en: "The two brothers are alike.", es: "Los dos hermanos se parecen.", score: 0 },
-            { sub: "9-11 The same", theory: "Iguales.", en: "We have the same car.", es: "Tenemos el mismo coche.", score: 0 },
-            { sub: "9-11 Different", theory: "Diferente a (From).", en: "My car is different from yours.", es: "Mi coche es diferente al tuyo.", score: 0 },
-            { sub: "9-1 Negativo", theory: "No tanto como.", en: "He is not as old as he looks.", es: "No es tan viejo como parece.", score: 0 },
-            { sub: "9-2 Than", theory: "Than (Comparativa).", en: "I am faster than you.", es: "Soy más rápido que tú.", score: 0 },
-            { sub: "9-11 Similar", theory: "Similar.", en: "This book is similar to that one.", es: "Este libro es similar a ese.", score: 0 },
-            { sub: "9-3 Far", theory: "Lejos (Farther).", en: "I ran farther than him.", es: "Corrí más lejos que él.", score: 0 },
-            { sub: "9-1 Igualdad", theory: "Igual de rápido.", en: "He speaks as fast as he can.", es: "Él habla tan rápido como puede.", score: 0 },
-            { sub: "9-5 A lot", theory: "Mucho mejor.", en: "I feel a lot better now.", es: "Me siento mucho mejor ahora.", score: 0 },
-            { sub: "9-8 Better", theory: "Cada vez mejor.", en: "Your English is getting better and better.", es: "Tu inglés mejora cada vez más.", score: 0 },
-            { sub: "9-9 Sooner", theory: "Cuanto antes mejor.", en: "The sooner, the better.", es: "Cuanto antes, mejor.", score: 0 },
-            { sub: "9-11 Senses", theory: "Parece (Looks like).", en: "It looks like rain.", es: "Parece que va a llover.", score: 0 },
-            { sub: "9-2 Superlativo", theory: "En el mundo.", en: "It's the tallest building in the world.", es: "Es el edificio más alto del mundo.", score: 0 }
-        ],
-        "Capítulo 10: The Passive": [
-            { sub: "10-1 Active/Passive", theory: "Enfoque en el objeto.", en: "The mouse was eaten by the cat.", es: "El ratón fue comido por el gato.", score: 0 },
-            { sub: "10-2 Form", theory: "Be + Participio.", en: "Rice is grown in Asia.", es: "El arroz se cultiva en Asia.", score: 0 },
-            { sub: "10-2 Past Passive", theory: "Fue hecho.", en: "This house was built in 1940.", es: "Esta casa fue construida en 1940.", score: 0 },
-            { sub: "10-2 Future Passive", theory: "Será enviado.", en: "The letter will be sent tomorrow.", es: "La carta será enviada mañana.", score: 0 },
-            { sub: "10-4 By-Phrase", theory: "Quién lo hizo.", en: "The book was written by Betty Azar.", es: "El libro fue escrito por Betty Azar.", score: 0 },
-            { sub: "10-5 Modals", theory: "Debe hacerse.", en: "The room must be cleaned.", es: "El cuarto debe ser limpiado.", score: 0 },
-            { sub: "10-5 Modals", theory: "Puede hacerse.", en: "It can be done.", es: "Puede hacerse.", score: 0 },
-            { sub: "10-6 Stative Pass.", theory: "Estado (Married).", en: "Paul is married to Susan.", es: "Paul está casado con Susan.", score: 0 },
-            { sub: "10-6 Stative Pass.", theory: "Estado (Interesado).", en: "I am interested in art.", es: "Estoy interesado en el arte.", score: 0 },
-            { sub: "10-6 Prepositions", theory: "Preocupado (Worried).", en: "I am worried about you.", es: "Estoy preocupado por ti.", score: 0 },
-            { sub: "10-7 Participial Adj.", theory: "-ed vs -ing (Bored).", en: "I am bored.", es: "Estoy aburrido.", score: 0 },
-            { sub: "10-7 Participial Adj.", theory: "-ed vs -ing (Boring).", en: "The movie is boring.", es: "La película es aburrida.", score: 0 },
-            { sub: "10-8 Get + Adjective", theory: "Cambio (Get hungry).", en: "I am getting hungry.", es: "Me está dando hambre.", score: 0 },
-            { sub: "10-8 Get + Participle", theory: "Casarse (Get married).", en: "They are getting married.", es: "Se van a casar.", score: 0 },
-            { sub: "10-9 Be used to", theory: "Estar acostumbrado.", en: "I am used to hot weather.", es: "Estoy acostumbrado al clima cálido.", score: 0 },
-            { sub: "10-9 Get used to", theory: "Acostumbrarse.", en: "I am getting used to the noise.", es: "Me estoy acostumbrando al ruido.", score: 0 },
-            { sub: "10-11 Be supposed to", theory: "Se supone que...", en: "I am supposed to be there at eight.", es: "Se supone que debo estar ahí a las ocho.", score: 0 },
-            { sub: "10-1 Passive", theory: "Mailed (Enviado).", en: "The package was mailed by Leo.", es: "El paquete fue enviado por Leo.", score: 0 },
-            { sub: "10-2 Present Pass.", theory: "Es hecho.", en: "English is spoken here.", es: "Aquí se habla inglés.", score: 0 },
-            { sub: "10-5 Should", theory: "Debería ser.", en: "He should be punished.", es: "Debería ser castigado.", score: 0 },
-            { sub: "10-6 Tired", theory: "Cansado (De).", en: "I am tired of this cold weather.", es: "Estoy cansado de este clima frío.", score: 0 },
-            { sub: "10-7 Scared", theory: "Asustado.", en: "The children were scared.", es: "Los niños estaban asustados.", score: 0 },
-            { sub: "10-8 Lost", theory: "Perderse.", en: "We got lost in the city.", es: "Nos perdimos en la ciudad.", score: 0 },
-            { sub: "10-9 Custom", theory: "Hábito.", en: "He's used to working hard.", es: "Él está acostumbrado a trabajar duro.", score: 0 },
-            { sub: "10-11 Expectation", theory: "Expectativa.", en: "We are supposed to write a report.", es: "Se supone que debemos escribir un reporte.", score: 0 }
-        ]
-    };
-
-    // LOGICA DE LA APLICACION
-    let azarBook = JSON.parse(localStorage.getItem('azar_master_v9')) || rawData;
-    let currentCh = Object.keys(azarBook)[0];
-    let currentSec = 0;
-    let auto = false;
-    const synth = window.speechSynthesis;
-    const Speech = window.SpeechRecognition || window.webkitSpeechRecognition;
-    const rec = Speech ? new Speech() : null;
-
-    if(rec) {
-        rec.lang = 'en-US';
-        rec.onresult = (e) => {
-            const transcript = e.results[0][0].transcript.toLowerCase();
-            compare(transcript);
+    <script>
+        // ====== BASE DE DATOS COMPLETA ======
+        const rawData = {
+            "Capítulo 1: Present Time": [
+                { sub: "1-1 Simple Present", theory: "Acciones habituales.", en: "I study every morning.", es: "Estudio cada mañana.", score: 0 },
+                { sub: "1-1 Simple Present", theory: "Verdades de la naturaleza.", en: "Water boils at 100 degrees.", es: "El agua hierve a 100 grados.", score: 0 },
+                { sub: "1-1 Present Progressive", theory: "Acciones ocurriendo ahora.", en: "I am writing a letter right now.", es: "Estoy escribiendo una carta ahora mismo.", score: 0 },
+                { sub: "1-2 Forms", theory: "Tercera persona singular lleva -s.", en: "She works in a bank.", es: "Ella trabaja en un banco.", score: 0 },
+                { sub: "1-3 Adverbs", theory: "Always (Siempre) va antes del verbo.", en: "I always drink coffee.", es: "Siempre bebo café.", score: 0 },
+                { sub: "1-3 Adverbs", theory: "Never (Nunca).", en: "It never snows here.", es: "Nunca nieva aquí.", score: 0 },
+                { sub: "1-4 Plurals", theory: "Sustantivos en plural.", en: "The students are in class.", es: "Los estudiantes están en clase.", score: 0 },
+                { sub: "1-5 Spelling", theory: "Verbos terminados en CH.", en: "He watches television every night.", es: "Él ve televisión cada noche.", score: 0 },
+                { sub: "1-6 Non-action", theory: "Verbos de estado: Know.", en: "I know your brother.", es: "Conozco a tu hermano.", score: 0 },
+                { sub: "1-6 Non-action", theory: "Verbos de estado: Want.", en: "I want to learn English.", es: "Quiero aprender inglés.", score: 0 }
+            ],
+            "Capítulo 2: Past Time": [
+                { sub: "2-1 Simple Past", theory: "Acción terminada.", en: "I walked home yesterday.", es: "Caminé a casa ayer.", score: 0 },
+                { sub: "2-1 Past BE", theory: "Was (Era/Estaba).", en: "The weather was nice.", es: "El clima estaba agradable.", score: 0 },
+                { sub: "2-1 Past BE", theory: "Were (Eran/Estaban).", en: "The shops were closed.", es: "Las tiendas estaban cerradas.", score: 0 },
+                { sub: "2-2 Spelling", theory: "Doblar consonante (Stop).", en: "He stopped the car.", es: "Él detuvo el auto.", score: 0 },
+                { sub: "2-4 Irregular", theory: "Verbo Comer (Eat-Ate).", en: "I ate an apple.", es: "Comí una manzana.", score: 0 },
+                { sub: "2-4 Irregular", theory: "Verbo Ver (See-Saw).", en: "I saw a movie.", es: "Vi una película.", score: 0 },
+                { sub: "2-4 Irregular", theory: "Verbo Ir (Go-Went).", en: "They went to Paris.", es: "Fueron a París.", score: 0 },
+                { sub: "2-4 Irregular", theory: "Verbo Comprar (Buy-Bought).", en: "I bought a new phone.", es: "Compré un teléfono nuevo.", score: 0 },
+                { sub: "2-1 Negative", theory: "Uso de Didn't.", en: "I didn't see you.", es: "No te vi.", score: 0 },
+                { sub: "2-1 Questions", theory: "Pregunta con Did.", en: "Did you sleep well?", es: "¿Dormiste bien?", score: 0 }
+            ],
+            "Capítulo 3: Future Time": [
+                { sub: "3-1 Be going to", theory: "Planes futuros.", en: "I am going to visit my aunt.", es: "Voy a visitar a mi tía.", score: 0 },
+                { sub: "3-1 Will", theory: "Predicción.", en: "It will snow tomorrow.", es: "Nevará mañana.", score: 0 },
+                { sub: "3-2 Negative", theory: "Not going to.", en: "I am not going to stay.", es: "No me voy a quedar.", score: 0 },
+                { sub: "3-3 Will Decision", theory: "Decisión espontánea.", en: "I will help you with that.", es: "Te ayudaré con eso.", score: 0 },
+                { sub: "3-4 Certainty", theory: "Certeza (Probably).", en: "He will probably be late.", es: "Él probablemente llegará tarde.", score: 0 },
+                { sub: "3-4 Maybe", theory: "Posibilidad (50%).", en: "Maybe it will rain.", es: "Tal vez llueva.", score: 0 },
+                { sub: "3-6 Time Clauses", theory: "Uso del presente.", en: "Before I go home, I will stop at the market.", es: "Antes de ir a casa, pasaré por el mercado.", score: 0 },
+                { sub: "3-6 If Clause", theory: "Condición futura.", en: "If I have time, I will call you.", es: "Si tengo tiempo, te llamaré.", score: 0 },
+                { sub: "3-7 Present Progressive", theory: "Planes confirmados.", en: "I am flying to New York tonight.", es: "Vuelo a Nueva York esta noche.", score: 0 },
+                { sub: "3-8 Present Simple", theory: "Horarios fijos.", en: "The train leaves at eight.", es: "El tren sale a las ocho.", score: 0 }
+            ],
+            "Capítulo 4: Present Perfect": [
+                { sub: "4-1 Participle", theory: "Participio Regular (-ed).", en: "I have lived here for a year.", es: "He vivido aquí por un año.", score: 0 },
+                { sub: "4-1 Participle", theory: "Participio Irregular (Seen).", en: "I have seen that movie twice.", es: "He visto esa película dos veces.", score: 0 },
+                { sub: "4-2 Since", theory: "Punto de inicio.", en: "I have been here since ten o'clock.", es: "He estado aquí desde las diez.", score: 0 },
+                { sub: "4-2 For", theory: "Duración.", en: "We have known him for ten years.", es: "Le conocemos desde hace diez años.", score: 0 },
+                { sub: "4-3 Ever", theory: "¿Alguna vez?", en: "Have you ever been to Japan?", es: "¿Has estado alguna vez en Japón?", score: 0 },
+                { sub: "4-3 Never", theory: "Experiencia negativa.", en: "I have never eaten snails.", es: "Nunca he comido caracoles.", score: 0 },
+                { sub: "4-4 Just", theory: "Acaba de ocurrir.", en: "I have just finished my lunch.", es: "Acabo de terminar mi almuerzo.", score: 0 },
+                { sub: "4-4 Recently", theory: "Recientemente.", en: "He has recently changed jobs.", es: "Él ha cambiado de trabajo recientemente.", score: 0 },
+                { sub: "4-4 Already", theory: "Ya ocurrió.", en: "I have already seen it.", es: "Ya lo he visto.", score: 0 },
+                { sub: "4-4 Yet", theory: "Aún no.", en: "I haven't finished yet.", es: "No he terminado aún.", score: 0 }
+            ],
+            "Capítulo 5: Asking Questions": [
+                { sub: "5-1 Yes/No", theory: "Pregunta simple.", en: "Do you need help?", es: "¿Necesitas ayuda?", score: 0 },
+                { sub: "5-2 Information", theory: "Lugar (Where).", en: "Where do you live?", es: "¿Dónde vives?", score: 0 },
+                { sub: "5-2 Information", theory: "Tiempo (When).", en: "When is your birthday?", es: "¿Cuándo es tu cumpleaños?", score: 0 },
+                { sub: "5-3 Time", theory: "Hora (What time).", en: "What time does the class start?", es: "¿A qué hora empieza la clase?", score: 0 },
+                { sub: "5-3 Reason", theory: "Razón (Why).", en: "Why are you laughing?", es: "¿Por qué te ríes?", score: 0 },
+                { sub: "5-4 Subject", theory: "Who como sujeto.", en: "Who knows the answer?", es: "¿Quién sabe la respuesta?", score: 0 },
+                { sub: "5-4 Object", theory: "Who como objeto.", en: "Who did you meet?", es: "¿A quién conociste?", score: 0 },
+                { sub: "5-5 Activity", theory: "What + Do.", en: "What are you doing?", es: "¿Qué estás haciendo?", score: 0 },
+                { sub: "5-6 Choice", theory: "Elección (Which).", en: "Which color do you prefer?", es: "¿Qué color prefieres?", score: 0 },
+                { sub: "5-6 Kind", theory: "Tipo (What kind).", en: "What kind of music do you like?", es: "¿Qué tipo de música te gusta?", score: 0 }
+            ]
         };
-        rec.onend = () => document.getElementById('recBtn').classList.remove('active');
-    }
 
-    function initSidebar() {
-        const list = document.getElementById('chapter-list');
-        list.innerHTML = '';
-        Object.keys(azarBook).forEach(ch => {
-            const btn = document.createElement('a');
-            btn.className = `chapter-link ${ch === currentCh ? 'active' : ''}`;
-            btn.innerText = ch;
-            btn.onclick = () => { currentCh = ch; currentSec = 0; selectChapter(); };
-            list.appendChild(btn);
-        });
-    }
-
-    function selectChapter() {
-        initSidebar();
-        updateLesson();
-        refreshStats();
-    }
-
-    function updateLesson() {
-        const data = azarBook[currentCh];
-        const item = data[currentSec];
-        document.getElementById('unit-info').innerText = `UNIT: ${currentSec + 1} / ${data.length}`;
-        document.getElementById('theory-display').innerHTML = `<strong>SUBTEMA: ${item.sub}</strong><br>REGLA: ${item.theory}`;
-        document.getElementById('display-en').innerText = item.en;
-        document.getElementById('display-es').innerText = item.es;
-        document.getElementById('score-val').innerText = item.score > 0 ? item.score + "%" : "--";
-        localStorage.setItem('azar_master_v9', JSON.stringify(azarBook));
-    }
-
-    function speak() {
-        synth.cancel();
-        const msg = new SpeechSynthesisUtterance(azarBook[currentCh][currentSec].en);
-        msg.lang = 'en-US';
-        msg.rate = 0.85;
-        msg.onend = () => { if(auto && currentSec < azarBook[currentCh].length - 1) setTimeout(() => move(1), 1500); };
-        synth.speak(msg);
-    }
-
-    function record() {
-        if(!rec) return alert("Navegador no compatible");
-        document.getElementById('recBtn').classList.add('active');
-        document.getElementById('transcript-txt').innerText = "Linking to Neural Network...";
-        rec.start();
-    }
-
-    function compare(spoken) {
-        const target = azarBook[currentCh][currentSec].en.toLowerCase().replace(/[^\w\s]/g, '');
-        const targetWords = target.split(' ');
-        const spokenWords = spoken.split(' ');
+        // ====== VARIABLES GLOBALES ======
+        let azarBook = JSON.parse(localStorage.getItem('azar_master_v10')) || rawData;
+        let currentCh = Object.keys(azarBook)[0];
+        let currentSec = 0;
+        let autoMode = false;
+        let autoTimer = null;
+        const synth = window.speechSynthesis;
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = SpeechRecognition ? new SpeechRecognition() : null;
         
-        let html = '';
-        let matches = 0;
-        targetWords.forEach(w => {
-            if(spokenWords.includes(w)) {
-                html += `<span class="match">${w}</span> `;
-                matches++;
+        if (recognition) {
+            recognition.lang = 'en-US';
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            
+            recognition.onresult = (event) => {
+                const transcript = event.results[0][0].transcript;
+                document.getElementById('transcriptTxt').innerHTML = `<i class="fas fa-user"></i> Entendido: "${transcript}"`;
+                compare(transcript);
+            };
+            
+            recognition.onend = () => {
+                document.getElementById('btnRec').classList.remove('active');
+                document.getElementById('btnRec').innerHTML = '<i class="fas fa-microphone"></i> Grabar';
+            };
+            
+            recognition.onerror = (event) => {
+                console.error('Error en reconocimiento:', event.error);
+                document.getElementById('transcriptTxt').innerHTML = `<i class="fas fa-exclamation-triangle"></i> Error: ${event.error}`;
+                document.getElementById('btnRec').classList.remove('active');
+                document.getElementById('btnRec').innerHTML = '<i class="fas fa-microphone"></i> Grabar';
+            };
+        }
+
+        // ====== FUNCIONES DE INTERFAZ ======
+        function initSidebar() {
+            const chapterList = document.getElementById('chapterList');
+            chapterList.innerHTML = '';
+            
+            Object.keys(azarBook).forEach((chapter, index) => {
+                const btn = document.createElement('div');
+                btn.className = `chapter-link ${chapter === currentCh ? 'active' : ''}`;
+                btn.innerHTML = `
+                    <div style="font-weight: 600;">${chapter}</div>
+                    <div style="font-size: 0.8rem; opacity: 0.8; margin-top: 3px;">
+                        ${azarBook[chapter].length} unidades
+                    </div>
+                `;
+                btn.onclick = () => {
+                    currentCh = chapter;
+                    currentSec = 0;
+                    selectChapter();
+                    // En móviles, cerrar el sidebar después de seleccionar
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('sidebarDesktop').classList.remove('active');
+                    }
+                };
+                chapterList.appendChild(btn);
+            });
+            
+            // Calcular estadísticas totales
+            let totalUnits = 0;
+            let masteredUnits = 0;
+            
+            Object.values(azarBook).forEach(chapter => {
+                totalUnits += chapter.length;
+                chapter.forEach(item => {
+                    if (item.score >= 90) masteredUnits++;
+                });
+            });
+            
+            document.getElementById('totalUnits').textContent = totalUnits;
+            document.getElementById('masteredUnits').textContent = masteredUnits;
+        }
+        
+        function selectChapter() {
+            initSidebar();
+            updateLesson();
+            refreshStats();
+            
+            // Efecto visual de transición
+            document.querySelector('.practice-frame').classList.add('fade-in');
+            setTimeout(() => {
+                document.querySelector('.practice-frame').classList.remove('fade-in');
+            }, 500);
+        }
+        
+        function updateLesson() {
+            const data = azarBook[currentCh];
+            if (!data || data.length === 0) return;
+            
+            const item = data[currentSec];
+            
+            // Actualizar información de unidad
+            document.getElementById('unitInfo').textContent = `UNIT: ${currentSec + 1} / ${data.length}`;
+            
+            // Actualizar teoría
+            document.getElementById('theoryDisplay').innerHTML = `
+                <strong>SUBTEMA: ${item.sub}</strong>
+                <div class="theory-content">${item.theory}</div>
+            `;
+            
+            // Actualizar frases
+            document.getElementById('displayEn').textContent = item.en;
+            document.getElementById('displayEs').textContent = item.es;
+            
+            // Actualizar puntuación
+            const scoreDisplay = document.getElementById('scoreVal');
+            if (item.score > 0) {
+                scoreDisplay.textContent = `${item.score}%`;
+                scoreDisplay.style.color = getScoreColor(item.score);
             } else {
-                html += `<span class="miss">${w}</span> `;
+                scoreDisplay.textContent = '--';
+                scoreDisplay.style.color = 'var(--m-yellow)';
+            }
+            
+            // Actualizar botones de navegación
+            document.getElementById('btnPrev').disabled = currentSec === 0;
+            document.getElementById('btnNext').disabled = currentSec === data.length - 1;
+            
+            // Guardar en localStorage
+            localStorage.setItem('azar_master_v10', JSON.stringify(azarBook));
+        }
+        
+        function getScoreColor(score) {
+            if (score >= 90) return '#00FF00'; // Verde brillante
+            if (score >= 70) return '#FFFF00'; // Amarillo
+            if (score >= 50) return '#FF9900'; // Naranja
+            return '#FF3333'; // Rojo
+        }
+        
+        // ====== FUNCIONALIDADES DE VOZ ======
+        function speak() {
+            if (!synth) {
+                alert('Tu navegador no soporta síntesis de voz');
+                return;
+            }
+            
+            const item = azarBook[currentCh][currentSec];
+            const utterance = new SpeechSynthesisUtterance(item.en);
+            utterance.lang = 'en-US';
+            utterance.rate = 0.85;
+            utterance.pitch = 1;
+            utterance.volume = 1;
+            
+            // Cambiar icono durante la reproducción
+            const btn = document.getElementById('btnPlay');
+            btn.innerHTML = '<i class="fas fa-volume-up"></i> Reproduciendo...';
+            btn.disabled = true;
+            
+            utterance.onend = () => {
+                btn.innerHTML = '<i class="fas fa-volume-up"></i> Oír';
+                btn.disabled = false;
+                
+                // Si está activo el modo auto, avanzar después de un tiempo
+                if (autoMode && currentSec < azarBook[currentCh].length - 1) {
+                    autoTimer = setTimeout(() => move(1), 1500);
+                }
+            };
+            
+            synth.cancel(); // Cancelar cualquier reproducción anterior
+            synth.speak(utterance);
+        }
+        
+        function record() {
+            if (!recognition) {
+                alert('Tu navegador no soporta reconocimiento de voz. Usa Chrome o Edge.');
+                return;
+            }
+            
+            const btn = document.getElementById('btnRec');
+            
+            if (btn.classList.contains('active')) {
+                // Detener grabación
+                recognition.stop();
+            } else {
+                // Iniciar grabación
+                try {
+                    btn.classList.add('active');
+                    btn.innerHTML = '<i class="fas fa-stop-circle"></i> Detener';
+                    document.getElementById('transcriptTxt').innerHTML = '<i class="fas fa-microphone-alt"></i> Escuchando...';
+                    recognition.start();
+                } catch (error) {
+                    console.error('Error al iniciar grabación:', error);
+                    btn.classList.remove('active');
+                    btn.innerHTML = '<i class="fas fa-microphone"></i> Grabar';
+                }
+            }
+        }
+        
+        function compare(spokenText) {
+            const item = azarBook[currentCh][currentSec];
+            const target = item.en.toLowerCase().replace(/[^\w\s]/g, '');
+            const spoken = spokenText.toLowerCase();
+            
+            const targetWords = target.split(' ');
+            const spokenWords = spoken.split(' ');
+            
+            let html = '';
+            let matches = 0;
+            
+            targetWords.forEach(word => {
+                if (spokenWords.includes(word)) {
+                    html += `<span class="match">${word}</span> `;
+                    matches++;
+                } else {
+                    html += `<span class="miss">${word}</span> `;
+                }
+            });
+            
+            document.getElementById('diffVisual').innerHTML = html;
+            
+            // Calcular puntuación
+            const score = Math.round((matches / targetWords.length) * 100);
+            const finalScore = Math.max(item.score || 0, score);
+            azarBook[currentCh][currentSec].score = finalScore;
+            
+            // Actualizar display de puntuación
+            const scoreDisplay = document.getElementById('scoreVal');
+            scoreDisplay.textContent = `${finalScore}%`;
+            scoreDisplay.style.color = getScoreColor(finalScore);
+            
+            // Actualizar mensaje de feedback
+            let feedback = '';
+            if (score >= 90) {
+                feedback = '<i class="fas fa-trophy"></i> ¡Excelente! Pronunciación perfecta';
+            } else if (score >= 70) {
+                feedback = '<i class="fas fa-thumbs-up"></i> Bien hecho, sigue practicando';
+            } else if (score >= 50) {
+                feedback = '<i class="fas fa-check-circle"></i> Puedes mejorar, intenta de nuevo';
+            } else {
+                feedback = '<i class="fas fa-exclamation-circle"></i> Necesitas más práctica';
+            }
+            
+            document.getElementById('transcriptTxt').innerHTML = feedback;
+            
+            // Actualizar interfaz y estadísticas
+            updateLesson();
+            refreshStats();
+            
+            // Si está en modo auto y la puntuación es buena, avanzar automáticamente
+            if (autoMode && score >= 70 && currentSec < azarBook[currentCh].length - 1) {
+                setTimeout(() => move(1), 2000);
+            }
+        }
+        
+        // ====== NAVEGACIÓN ======
+        function move(direction) {
+            const data = azarBook[currentCh];
+            const newIndex = currentSec + direction;
+            
+            if (newIndex >= 0 && newIndex < data.length) {
+                currentSec = newIndex;
+                resetFeedback();
+                updateLesson();
+                
+                if (autoMode) {
+                    // Cancelar timer anterior si existe
+                    if (autoTimer) clearTimeout(autoTimer);
+                    // Reproducir automáticamente después de un breve delay
+                    autoTimer = setTimeout(speak, 500);
+                }
+            }
+        }
+        
+        function resetFeedback() {
+            document.getElementById('diffVisual').textContent = '...';
+            document.getElementById('transcriptTxt').innerHTML = '<i class="fas fa-link"></i> Neural Link: Standby';
+        }
+        
+        function toggleAuto() {
+            autoMode = !autoMode;
+            const btn = document.getElementById('btnAuto');
+            
+            if (autoMode) {
+                btn.classList.add('active');
+                btn.innerHTML = '<i class="fas fa-robot"></i> Auto ON';
+                // Comenzar reproducción automática
+                speak();
+            } else {
+                btn.classList.remove('active');
+                btn.innerHTML = '<i class="fas fa-robot"></i> Auto';
+                // Detener cualquier timer activo
+                if (autoTimer) clearTimeout(autoTimer);
+            }
+        }
+        
+        // ====== ESTADÍSTICAS ======
+        function refreshStats() {
+            let totalScore = 0;
+            let totalItems = 0;
+            let mastered = 0;
+            
+            Object.values(azarBook).forEach(chapter => {
+                chapter.forEach(item => {
+                    if (item.score > 0) {
+                        totalScore += item.score;
+                        totalItems++;
+                    }
+                    if (item.score >= 90) mastered++;
+                });
+            });
+            
+            const avg = totalItems > 0 ? Math.round(totalScore / totalItems) : 0;
+            
+            document.getElementById('accuracyVal').textContent = `${avg}%`;
+            document.getElementById('masteredVal').textContent = mastered;
+            
+            // Determinar rango
+            let rank = "BATTERY";
+            if (avg > 20) rank = "COPPER TOP";
+            if (avg > 50) rank = "POTENTIAL";
+            if (avg > 80) rank = "RED PILL";
+            if (avg > 95) rank = "THE ONE";
+            
+            document.getElementById('rankVal').textContent = rank;
+        }
+        
+        // ====== FUNCIONES DE ADMINISTRACIÓN ======
+        function addNew() {
+            const sub = document.getElementById('inSub').value.trim();
+            const theory = document.getElementById('inTheory').value.trim();
+            const en = document.getElementById('inEn').value.trim();
+            const es = document.getElementById('inEs').value.trim();
+            
+            if (!en || !es) {
+                alert('Por favor completa al menos la frase en inglés y su traducción');
+                return;
+            }
+            
+            // Asegurarse de que el capítulo actual existe
+            if (!azarBook[currentCh]) {
+                azarBook[currentCh] = [];
+            }
+            
+            // Añadir nuevo ejercicio
+            azarBook[currentCh].push({
+                sub: sub || "Nuevo Subtema",
+                theory: theory || "Nueva regla gramatical",
+                en: en,
+                es: es,
+                score: 0
+            });
+            
+            currentSec = azarBook[currentCh].length - 1;
+            
+            // Limpiar formulario
+            document.getElementById('inSub').value = '';
+            document.getElementById('inTheory').value = '';
+            document.getElementById('inEn').value = '';
+            document.getElementById('inEs').value = '';
+            
+            // Actualizar interfaz
+            updateLesson();
+            initSidebar();
+            
+            // Mostrar confirmación
+            document.getElementById('transcriptTxt').innerHTML = '<i class="fas fa-check-circle"></i> Nuevo ejercicio añadido';
+        }
+        
+        function exportData() {
+            const dataStr = JSON.stringify(azarBook, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            
+            const url = URL.createObjectURL(dataBlob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `matrix_english_backup_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            document.getElementById('transcriptTxt').innerHTML = '<i class="fas fa-download"></i> Backup exportado correctamente';
+        }
+        
+        function importData() {
+            const input = document.createElement('input');
+            input.type = 'file';
+            input.accept = '.json';
+            
+            input.onchange = (event) => {
+                const file = event.target.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = (e) => {
+                    try {
+                        const importedData = JSON.parse(e.target.result);
+                        azarBook = importedData;
+                        currentCh = Object.keys(azarBook)[0];
+                        currentSec = 0;
+                        
+                        localStorage.setItem('azar_master_v10', JSON.stringify(azarBook));
+                        
+                        initSidebar();
+                        updateLesson();
+                        refreshStats();
+                        
+                        document.getElementById('transcriptTxt').innerHTML = '<i class="fas fa-check-circle"></i> Datos importados correctamente';
+                    } catch (error) {
+                        alert('Error al importar el archivo. Asegúrate de que es un JSON válido.');
+                    }
+                };
+                
+                reader.readAsText(file);
+            };
+            
+            input.click();
+        }
+        
+        function resetAll() {
+            if (confirm('¿Estás seguro de que quieres reiniciar toda la Matrix? Se perderán todos tus progresos.')) {
+                localStorage.removeItem('azar_master_v10');
+                azarBook = rawData;
+                currentCh = Object.keys(azarBook)[0];
+                currentSec = 0;
+                
+                initSidebar();
+                updateLesson();
+                refreshStats();
+                
+                document.getElementById('transcriptTxt').innerHTML = '<i class="fas fa-redo"></i> Matrix reiniciada a valores predeterminados';
+            }
+        }
+        
+        // ====== INICIALIZACIÓN ======
+        document.addEventListener('DOMContentLoaded', () => {
+            // Inicializar sidebar
+            initSidebar();
+            selectChapter();
+            refreshStats();
+            
+            // Configurar botón de menú móvil
+            document.getElementById('menuToggle').addEventListener('click', () => {
+                document.getElementById('sidebarDesktop').classList.toggle('active');
+            });
+            
+            // Cerrar sidebar al hacer clic fuera en móviles
+            document.addEventListener('click', (event) => {
+                const sidebar = document.getElementById('sidebarDesktop');
+                const menuToggle = document.getElementById('menuToggle');
+                
+                if (window.innerWidth <= 768 && 
+                    sidebar.classList.contains('active') &&
+                    !sidebar.contains(event.target) &&
+                    !menuToggle.contains(event.target)) {
+                    sidebar.classList.remove('active');
+                }
+            });
+            
+            // Atajos de teclado
+            document.addEventListener('keydown', (event) => {
+                // Evitar atajos cuando se está escribiendo en inputs
+                if (event.target.tagName === 'INPUT' || event.target.tagName === 'TEXTAREA') return;
+                
+                switch(event.key) {
+                    case 'ArrowLeft':
+                        move(-1);
+                        break;
+                    case 'ArrowRight':
+                        move(1);
+                        break;
+                    case ' ':
+                        event.preventDefault();
+                        speak();
+                        break;
+                    case 'r':
+                    case 'R':
+                        record();
+                        break;
+                    case 'a':
+                    case 'A':
+                        toggleAuto();
+                        break;
+                }
+            });
+            
+            // Detectar cambios de orientación
+            window.addEventListener('orientationchange', () => {
+                // Pequeño delay para que la ventana se redimensione
+                setTimeout(() => {
+                    if (window.innerWidth <= 768) {
+                        document.getElementById('sidebarDesktop').classList.remove('active');
+                    }
+                }, 300);
+            });
+            
+            // Mostrar mensaje de bienvenida
+            setTimeout(() => {
+                if (document.getElementById('transcriptTxt').innerText.includes('Standby')) {
+                    document.getElementById('transcriptTxt').innerHTML = 
+                        '<i class="fas fa-info-circle"></i> Usa las flechas del teclado para navegar. Presiona R para grabar.';
+                }
+            }, 3000);
+        });
+        
+        // ====== DETECCIÓN DE VISIBILIDAD ======
+        // Pausar audio cuando la página no está visible
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden) {
+                if (synth.speaking) {
+                    synth.cancel();
+                }
+                if (recognition && recognition.continuous) {
+                    recognition.stop();
+                }
             }
         });
-        
-        const score = Math.round((matches / targetWords.length) * 100);
-        document.getElementById('diff-visual').innerHTML = html;
-        document.getElementById('score-val').innerText = score + "%";
-        document.getElementById('transcript-txt').innerText = `Neural Echo: "${spoken}"`;
-        
-        azarBook[currentCh][currentSec].score = Math.max(azarBook[currentCh][currentSec].score, score);
-        updateLesson();
-        refreshStats();
-    }
-
-    function move(d) {
-        const len = azarBook[currentCh].length;
-        currentSec = (currentSec + d + len) % len;
-        resetFeedback();
-        updateLesson();
-        if(auto) speak();
-    }
-
-    function resetFeedback() {
-        document.getElementById('diff-visual').innerText = "...";
-        document.getElementById('score-val').innerText = "--";
-        document.getElementById('transcript-txt').innerText = "Neural Link: Standby";
-    }
-
-    function toggleAuto() {
-        auto = !auto;
-        document.getElementById('autoBtn').style.background = auto ? 'white' : 'black';
-        document.getElementById('autoBtn').style.color = auto ? 'black' : 'var(--m-green)';
-        if(auto) speak();
-    }
-
-    function refreshStats() {
-        let totalScore = 0;
-        let totalItems = 0;
-        let mastered = 0;
-
-        Object.values(azarBook).forEach(ch => {
-            ch.forEach(item => {
-                totalScore += item.score;
-                totalItems++;
-                if(item.score >= 90) mastered++;
-            });
-        });
-
-        const avg = Math.round(totalScore / totalItems);
-        document.getElementById('accuracy-val').innerText = avg + "%";
-        document.getElementById('mastered-val').innerText = mastered;
-
-        let rank = "BATTERY";
-        if(avg > 20) rank = "COPPER TOP";
-        if(avg > 50) rank = "POTENTIAL";
-        if(avg > 80) rank = "RED PILL";
-        if(avg > 95) rank = "THE ONE";
-        document.getElementById('rank-val').innerText = rank;
-    }
-
-    function addNew() {
-        const sub = document.getElementById('in-sub').value;
-        const theory = document.getElementById('in-theory').value;
-        const en = document.getElementById('in-en').value;
-        const es = document.getElementById('in-es').value;
-        if(en && es) {
-            azarBook[currentCh].push({ sub, theory, en, es, score: 0 });
-            currentSec = azarBook[currentCh].length - 1;
-            updateLesson();
-        }
-    }
-
-    function resetAll() { if(confirm("¿Reiniciar Matrix?")) { localStorage.clear(); location.reload(); } }
-    
-    function exportData() {
-        const blob = new Blob([JSON.stringify(azarBook)], {type: "application/json"});
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url; a.download = "azar_master_backup.json"; a.click();
-    }
-
-    window.onload = selectChapter;
-</script>
-
+    </script>
 </body>
 </html>
