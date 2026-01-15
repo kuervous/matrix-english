@@ -3,147 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>MATRIX SCHOLAR V11: 250 NEURAL UNITS</title>
+    <title>MATRIX MASTER ENCYCLOPEDIA: COMPLETE DATA</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --m-green: #00FF41;
-            --m-dark: #001500;
-            --m-bg: #030303;
-            --m-red: #ff3131;
-            --m-blue: #00d4ff;
-            --m-yellow: #FFD700;
-            --m-panel: #071d13;
-        }
-
+        :root { --m-green: #00FF41; --m-dark: #001500; --m-bg: #030303; --m-red: #ff3131; --m-blue: #00d4ff; --m-yellow: #FFD700; --m-panel: #071d13; }
         * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background: var(--m-bg);
-            color: #fff;
-            font-family: 'Courier New', monospace;
-            height: 100vh;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-
-        /* --- NAVBAR MÓVIL --- */
-        .mobile-nav {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 15px;
-            background: var(--m-dark);
-            border-bottom: 2px solid var(--m-green);
-            z-index: 1000;
-        }
-
+        body { background: var(--m-bg); color: #fff; font-family: 'Courier New', monospace; height: 100vh; overflow: hidden; display: flex; flex-direction: column; }
+        .mobile-nav { display: flex; align-items: center; justify-content: space-between; padding: 10px 15px; background: var(--m-dark); border-bottom: 2px solid var(--m-green); z-index: 1000; }
         .menu-btn { font-size: 1.5rem; color: var(--m-green); cursor: pointer; }
-
-        /* --- ESTRUCTURA --- */
         .app-core { display: flex; flex: 1; overflow: hidden; }
-
-        #sidebar {
-            width: 300px;
-            background: #000;
-            border-right: 2px solid var(--m-green);
-            overflow-y: auto;
-            transition: 0.3s;
-            position: absolute;
-            height: 100%;
-            z-index: 999;
-            transform: translateX(-100%);
-        }
-
+        #sidebar { width: 300px; background: #000; border-right: 2px solid var(--m-green); overflow-y: auto; transition: 0.3s; position: absolute; height: 100%; z-index: 999; transform: translateX(-100%); }
         #sidebar.open { transform: translateX(0); }
-
-        @media (min-width: 992px) {
-            #sidebar { position: relative; transform: translateX(0); }
-            .mobile-nav { display: none; }
-        }
-
-        .chapter-btn {
-            padding: 15px;
-            border-bottom: 1px solid #1a1a1a;
-            cursor: pointer;
-            color: var(--m-green);
-            font-size: 0.8em;
-        }
-
+        @media (min-width: 992px) { #sidebar { position: relative; transform: translateX(0); } .mobile-nav { display: none; } }
+        .chapter-btn { padding: 12px; border-bottom: 1px solid #1a1a1a; cursor: pointer; color: var(--m-green); font-size: 0.75em; transition: 0.2s; }
         .chapter-btn:hover, .chapter-btn.active { background: var(--m-green); color: #000; font-weight: bold; }
-
-        /* --- CONTENIDO --- */
-        #main-display {
-            flex: 1;
-            overflow-y: auto;
-            padding: 20px;
-            background: linear-gradient(180deg, #000 0%, #050505 100%);
-            display: flex;
-            flex-direction: column;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .stat-card {
-            background: var(--m-panel);
-            border: 1px solid var(--m-green);
-            padding: 10px;
-            text-align: center;
-            border-radius: 5px;
-        }
-
-        .stat-card span { display: block; font-size: 0.6em; color: var(--m-blue); }
-        .stat-card b { font-size: 1.1em; color: var(--m-green); }
-
-        .theory-box {
-            background: #111;
-            border-left: 4px solid var(--m-yellow);
-            padding: 15px;
-            margin-bottom: 20px;
-            font-size: 0.85em;
-            color: #ccc;
-        }
-
-        .practice-card {
-            border: 2px solid var(--m-green);
-            padding: 25px;
-            background: rgba(0,255,65,0.05);
-            border-radius: 10px;
-            box-shadow: 0 0 15px rgba(0,255,65,0.1);
-        }
-
-        .text-en { font-size: 1.6em; margin-bottom: 10px; color: #fff; text-align: center; }
-        .text-es { font-size: 1em; color: var(--m-green); font-style: italic; text-align: center; opacity: 0.8; }
-
-        /* --- EVALUACIÓN --- */
-        .eval-box { text-align: center; margin: 20px 0; }
-        .score-val { font-size: 3.5em; font-weight: bold; color: var(--m-yellow); text-shadow: 0 0 10px gold; }
-        .diff-text { font-size: 0.9em; margin-top: 10px; min-height: 1.5em; }
+        #main-display { flex: 1; overflow-y: auto; padding: 20px; background: linear-gradient(180deg, #000 0%, #050505 100%); }
+        .stats-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-bottom: 20px; }
+        .stat-card { background: var(--m-panel); border: 1px solid var(--m-green); padding: 10px; text-align: center; border-radius: 5px; }
+        .stat-card span { display: block; font-size: 0.55em; color: var(--m-blue); }
+        .stat-card b { font-size: 1em; color: var(--m-green); }
+        .theory-box { background: #111; border-left: 4px solid var(--m-yellow); padding: 15px; margin-bottom: 15px; font-size: 0.8em; color: #ccc; }
+        .practice-card { border: 2px solid var(--m-green); padding: 20px; background: rgba(0,255,65,0.05); border-radius: 10px; box-shadow: 0 0 15px rgba(0,255,65,0.1); }
+        .text-en { font-size: 1.5em; margin-bottom: 10px; color: #fff; text-align: center; font-weight: bold; }
+        .text-es { font-size: 0.95em; color: var(--m-green); font-style: italic; text-align: center; opacity: 0.8; }
+        .eval-box { text-align: center; margin: 15px 0; }
+        .score-val { font-size: 3em; font-weight: bold; color: var(--m-yellow); }
         .match { color: var(--m-green); }
         .miss { color: var(--m-red); text-decoration: line-through; }
-
-        /* --- CONTROLES --- */
-        .controls { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-        .btn {
-            background: #000;
-            color: var(--m-green);
-            border: 1px solid var(--m-green);
-            padding: 15px 5px;
-            cursor: pointer;
-            font-size: 0.7em;
-            font-weight: bold;
-            text-transform: uppercase;
-        }
-
-        .btn-rec { border-color: var(--m-red); color: var(--m-red); }
+        .controls { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }
+        .btn { background: #000; color: var(--m-green); border: 1px solid var(--m-green); padding: 12px 5px; cursor: pointer; font-size: 0.65em; font-weight: bold; text-transform: uppercase; border-radius: 4px; }
+        .btn:hover { background: var(--m-green); color: #000; }
         .btn-rec.active { background: var(--m-red); color: #fff; animation: blink 1s infinite; }
-
         @keyframes blink { 50% { opacity: 0.5; } }
     </style>
 </head>
@@ -151,14 +41,14 @@
 
     <nav class="mobile-nav">
         <div class="menu-btn" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
-        <div style="font-size: 0.8em; font-weight: bold; color: var(--m-green);">MATRIX MASTER V11</div>
+        <div style="font-size: 0.8em; font-weight: bold; color: var(--m-green);">MATRIX MASTER V12</div>
         <div style="width: 30px;"></div>
     </nav>
 
     <div class="app-core">
         <div id="sidebar">
-            <div style="padding: 20px; border-bottom: 2px solid var(--m-green); text-align: center; color: #fff;">
-                <b>NEURAL CHAPTERS</b>
+            <div style="padding: 20px; border-bottom: 2px solid var(--m-green); text-align: center; color: #fff; font-size: 0.9em;">
+                <b>DATA NODES</b>
             </div>
             <div id="chapter-list"></div>
         </div>
@@ -167,110 +57,117 @@
             <div class="stats-grid">
                 <div class="stat-card"><span>RANK</span><b id="rank-val">BATTERY</b></div>
                 <div class="stat-card"><span>ACCURACY</span><b id="acc-val">0%</b></div>
-                <div class="stat-card"><span>MASTERED</span><b id="mast-val">0</b></div>
+                <div class="stat-card"><span>UNITS</span><b id="mast-val">0</b></div>
             </div>
 
-            <div class="theory-box" id="theory-display">Selecciona un capítulo para cargar la simulación...</div>
+            <div class="theory-box" id="theory-display">Cargando Sistema...</div>
 
             <div class="practice-card">
-                <div id="unit-tag" style="font-size: 0.6em; text-align: right;">UNIT: 0/0</div>
-                <div class="text-en" id="display-en">Neural link ready.</div>
-                <div class="text-es" id="display-es">Enlace neuronal listo.</div>
+                <div id="unit-tag" style="font-size: 0.5em; text-align: right; color: var(--m-blue);">UNIT: 0/0</div>
+                <div class="text-en" id="display-en">Neural Link Active.</div>
+                <div class="text-es" id="display-es">Iniciando Entrenamiento...</div>
 
                 <div class="eval-box">
-                    <div id="diff-visual">...</div>
+                    <div id="diff-visual" style="font-size:0.8em;">...</div>
                     <div class="score-val" id="score-val">--</div>
                 </div>
 
                 <div class="controls">
-                    <button class="btn" onclick="nav(-1)"><i class="fas fa-chevron-left"></i></button>
-                    <button class="btn" onclick="speak()"><i class="fas fa-volume-up"></i> OÍR</button>
-                    <button class="btn btn-rec" id="recBtn" onclick="record()"><i class="fas fa-microphone"></i> REC</button>
+                    <button class="btn" onclick="nav(-1)"><i class="fas fa-arrow-left"></i></button>
+                    <button class="btn" onclick="speak()"><i class="fas fa-volume-up"></i></button>
+                    <button class="btn btn-rec" id="recBtn" onclick="record()"><i class="fas fa-microphone"></i></button>
                     <button class="btn" onclick="toggleAuto()" id="autoBtn">AUTO</button>
-                    <button class="btn" onclick="nav(1)"><i class="fas fa-chevron-right"></i></button>
+                    <button class="btn" onclick="nav(1)"><i class="fas fa-arrow-right"></i></button>
                 </div>
             </div>
 
-            <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
-                <p style="font-size: 0.7em; color: var(--m-blue);">ADMIN TERMINAL:</p>
-                <button class="btn" style="width: 100%; margin-top: 10px; border-color: gold; color: gold;" onclick="exportSession()">EXPORTAR PROGRESO</button>
-                <button class="btn" style="width: 100%; margin-top: 10px; border-color: red; color: red;" onclick="resetSystem()">RESETEAR MATRIX</button>
+            <div style="margin-top: 20px; border-top: 1px solid #333; padding-top: 15px;">
+                <button class="btn" style="width: 100%; border-color: red; color: red;" onclick="resetSystem()">RESETEAR MATRIX</button>
             </div>
         </main>
     </div>
 
 <script>
-    // ====== BASE DE DATOS MAESTRA: 250 EJEMPLOS (RESUMIDA POR ESPACIO PERO ESTRUCTURADA) ======
+    // ====== BASE DE DATOS INYECTADA (CAP 1-10 + VERBOS) ======
     const masterData = {
         "01: Present Time": [
-            { sub: "1-1 Simple Present", theory: "Habilidades y verdades.", en: "I study every day.", es: "Estudio cada día.", score: 0 },
-            { sub: "1-1 Simple Present", theory: "Verdades universales.", en: "The earth revolves around the sun.", es: "La tierra gira alrededor del sol.", score: 0 },
-            { sub: "1-1 Present Progressive", theory: "Ocurriendo ahora.", en: "I am learning English right now.", es: "Estoy aprendiendo inglés ahora mismo.", score: 0 },
-            { sub: "1-3 Adverbs", theory: "Always (100%).", en: "He always eats breakfast.", es: "Él siempre desayuna.", score: 0 },
-            { sub: "1-3 Adverbs", theory: "Never (0%).", en: "I never tell a lie.", es: "Nunca digo una mentira.", score: 0 },
-            { sub: "1-4 Plurals", theory: "Plurales con S.", en: "Birds sing outside my window.", es: "Los pájaros cantan fuera de mi ventana.", score: 0 },
-            { sub: "1-5 Third Person", theory: "He/She/It + S.", en: "The teacher speaks slowly.", es: "El profesor habla despacio.", score: 0 },
-            { sub: "1-6 Non-action", theory: "Estado mental.", en: "I know the answer.", es: "Conozco la respuesta.", score: 0 },
-            { sub: "1-6 Needs", theory: "Deseo (Want).", en: "I want a cup of coffee.", es: "Quiero una taza de café.", score: 0 },
-            { sub: "1-7 Short Answers", theory: "Pregunta Do.", en: "Do you like tea?", es: "¿Te gusta el té?", score: 0 },
-            // ... Se asume que aquí siguen los 25 ejemplos por capítulo
-            { sub: "1-1 Habits", theory: "Hábito.", en: "She brushes her teeth twice a day.", es: "Ella se cepilla los dientes dos veces al día.", score: 0 }
+            { sub: "1-1 Simple Present", theory: "Acciones habituales.", en: "I drink coffee every morning.", es: "Bebo café cada mañana.", score: 0 },
+            { sub: "1-1 Present Cont.", theory: "Acción ocurriendo ahora.", en: "I am sitting in a chair right now.", es: "Estoy sentado en una silla ahora mismo.", score: 0 },
+            { sub: "1-3 Adverbs", theory: "Always (Siempre).", en: "She always speaks slowly.", es: "Ella siempre habla despacio.", score: 0 },
+            { sub: "1-4 Plurals", theory: "Plural con S.", en: "Birds fly in the sky.", es: "Los pájaros vuelan en el cielo.", score: 0 },
+            { sub: "1-6 Non-Action", theory: "Verbo Know (Saber).", en: "I know the answer.", es: "Sé la respuesta.", score: 0 },
+            { sub: "1-6 Want", theory: "Deseo (Want).", en: "I want a sandwich.", es: "Quiero un sándwich.", score: 0 },
+            { sub: "1-7 Short Answers", theory: "Respuesta Do.", en: "Yes, I do.", es: "Sí, lo hago.", score: 0 },
+            { sub: "1-5 Third Person", theory: "He/She + S.", en: "He watches television.", es: "Él ve televisión.", score: 0 }
         ],
         "02: Past Time": [
-            { sub: "2-1 Simple Past", theory: "Acción terminada.", en: "I walked home yesterday.", es: "Caminé a casa ayer.", score: 0 },
-            { sub: "2-1 Past BE", theory: "Estado pasado.", en: "The movie was very good.", es: "La película fue muy buena.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Past of See.", en: "I saw you at the park.", es: "Te vi en el parque.", score: 0 },
-            { sub: "2-4 Irregular", theory: "Past of Go.", en: "They went to the hospital.", es: "Fueron al hospital.", score: 0 },
+            { sub: "2-1 Simple Past", theory: "Acción terminada.", en: "I walked to school yesterday.", es: "Caminé a la escuela ayer.", score: 0 },
+            { sub: "2-1 Past BE", theory: "Was (Era/Estaba).", en: "The weather was nice.", es: "El clima estaba agradable.", score: 0 },
+            { sub: "2-4 Irregular", theory: "Past of Eat.", en: "I ate dinner at seven.", es: "Cené a las siete.", score: 0 },
             { sub: "2-6 Progressive", theory: "Acción en curso.", en: "I was sleeping when you called.", es: "Estaba durmiendo cuando llamaste.", score: 0 },
-            { sub: "2-8 Used To", theory: "Hábito antiguo.", en: "I used to play soccer.", es: "Solía jugar al fútbol.", score: 0 }
+            { sub: "2-8 Used To", theory: "Hábito antiguo.", en: "I used to play the piano.", es: "Solía tocar el piano.", score: 0 },
+            { sub: "2-7 When", theory: "Conector When.", en: "When the sun came out, we left.", es: "Cuando salió el sol, nos fuimos.", score: 0 }
         ],
         "03: Future Time": [
-            { sub: "3-1 Going to", theory: "Plan futuro.", en: "I am going to travel to Europe.", es: "Voy a viajar a Europa.", score: 0 },
-            { sub: "3-1 Will", theory: "Predicción.", en: "It will rain tomorrow.", es: "Lloverá mañana.", score: 0 },
-            { sub: "3-9 About To", theory: "Inmediatez.", en: "The train is about to leave.", es: "El tren está a punto de irse.", score: 0 }
+            { sub: "3-1 Going to", theory: "Planes futuros.", en: "I am going to travel next month.", es: "Voy a viajar el próximo mes.", score: 0 },
+            { sub: "3-1 Will", theory: "Predicciones.", en: "It will rain tomorrow.", es: "Lloverá mañana.", score: 0 },
+            { sub: "3-9 About to", theory: "Inmediatez.", en: "The movie is about to start.", es: "La película está a punto de empezar.", score: 0 },
+            { sub: "3-6 If Clause", theory: "Condición.", en: "If it rains, I will stay home.", es: "Si llueve, me quedaré en casa.", score: 0 }
         ],
-        "04: Present Perfect": [
-            { sub: "4-2 Since", theory: "Inicio de acción.", en: "I have lived here since 2010.", es: "He vivido aquí desde el 2010.", score: 0 },
-            { sub: "4-2 For", theory: "Duración.", en: "We have known him for years.", es: "Le conocemos desde hace años.", score: 0 },
-            { sub: "4-4 Already", theory: "Antes de lo esperado.", en: "I have already finished my work.", es: "Ya he terminado mi trabajo.", score: 0 }
+        "04: Perfects": [
+            { sub: "4-2 Since", theory: "Punto de inicio.", en: "I have been here since ten.", es: "He estado aquí desde las diez.", score: 0 },
+            { sub: "4-2 For", theory: "Duración.", en: "We have known him for years.", es: "Le conocemos hace años.", score: 0 },
+            { sub: "4-4 Already", theory: "Ya ocurrió.", en: "I have already finished my work.", es: "Ya terminé mi trabajo.", score: 0 },
+            { sub: "4-8 Past Perfect", theory: "Pasado del pasado.", en: "He had left when I arrived.", es: "Él se había ido cuando llegué.", score: 0 }
         ],
-        "05: Asking Questions": [
-            { sub: "5-2 Wh- words", theory: "Lugar.", en: "Where do you live?", es: "¿Dónde vives?", score: 0 },
+        "05: Questions": [
+            { sub: "5-2 Wh-", theory: "Where (Lugar).", en: "Where do you live?", es: "¿Dónde vives?", score: 0 },
+            { sub: "5-3 Why", theory: "Razón.", en: "Why are you laughing?", es: "¿Por qué te ríes?", score: 0 },
             { sub: "5-15 Tags", theory: "Confirmación.", en: "You are happy, aren't you?", es: "Eres feliz, ¿verdad?", score: 0 }
         ],
         "06: Nouns & Pronouns": [
             { sub: "6-1 Plurals", theory: "Irregulares.", en: "My teeth are white.", es: "Mis dientes son blancos.", score: 0 },
-            { sub: "6-11 Possessive", theory: "Propiedad.", en: "This is Maria's book.", es: "Este es el libro de María.", score: 0 },
+            { sub: "6-11 Possessive", theory: "Posesivos.", en: "This is Tom's book.", es: "Este es el libro de Tom.", score: 0 },
             { sub: "6-13 Reflexive", theory: "Uno mismo.", en: "I saw myself in the mirror.", es: "Me vi en el espejo.", score: 0 }
         ],
-        "07: Modal Auxiliaries": [
-            { sub: "7-2 Ability", theory: "Capacidad.", en: "I can speak three languages.", es: "Puedo hablar tres idiomas.", score: 0 },
-            { sub: "7-7 Advice", theory: "Consejo.", en: "You should see a doctor.", es: "Deberías ver a un médico.", score: 0 },
-            { sub: "7-9 Necessity", theory: "Obligación.", en: "I have to go now.", es: "Tengo que irme ahora.", score: 0 }
+        "07: Modals": [
+            { sub: "7-2 Ability", theory: "Can (Poder).", en: "I can speak English.", es: "Puedo hablar inglés.", score: 0 },
+            { sub: "7-7 Advice", theory: "Should (Debería).", en: "You should study harder.", es: "Deberías estudiar más.", score: 0 },
+            { sub: "7-9 Necessity", theory: "Must (Obligación).", en: "You must stop at the red light.", es: "Debes parar en la luz roja.", score: 0 }
         ],
-        "08: Connecting Ideas": [
-            { sub: "8-2 Contrast", theory: "Pero.", en: "I am tired but I am happy.", es: "Estoy cansado pero soy feliz.", score: 0 },
-            { sub: "8-6 Reason", theory: "Porque.", en: "He ate because he was hungry.", es: "Comió porque tenía hambre.", score: 0 }
+        "08: Connectors": [
+            { sub: "8-2 But", theory: "Contraste.", en: "I am tired but I am happy.", es: "Estoy cansado pero feliz.", score: 0 },
+            { sub: "8-6 Because", theory: "Razón.", en: "He ate because he was hungry.", es: "Comió porque tenía hambre.", score: 0 },
+            { sub: "8-7 Although", theory: "Concesión.", en: "Although it was cold, we went out.", es: "Aunque hacía frío, salimos.", score: 0 }
         ],
         "09: Comparisons": [
-            { sub: "9-1 Equality", theory: "Tan como.", en: "I am as tall as my father.", es: "Soy tan alto como mi padre.", score: 0 },
-            { sub: "9-2 Comparative", theory: "Más que.", en: "Health is more important than money.", es: "La salud es más importante que el dinero.", score: 0 },
-            { sub: "9-2 Superlative", theory: "El más.", en: "This is the best day of my life.", es: "Este es el mejor día de mi vida.", score: 0 }
+            { sub: "9-1 As...As", theory: "Igualdad.", en: "I am as tall as my father.", es: "Soy tan alto como mi padre.", score: 0 },
+            { sub: "9-2 More", theory: "Comparativo largo.", en: "Health is more important than money.", es: "La salud es más importante que el dinero.", score: 0 },
+            { sub: "9-3 Superlative", theory: "El más.", en: "This is the best day of my life.", es: "Este es el mejor día de mi vida.", score: 0 }
         ],
         "10: The Passive": [
-            { sub: "10-1 Passive", theory: "Enfoque en objeto.", en: "The car was fixed by the mechanic.", es: "El coche fue arreglado por el mecánico.", score: 0 },
-            { sub: "10-2 Present Passive", theory: "Hecho.", en: "Rice is grown in Asia.", es: "El arroz se cultiva en Asia.", score: 0 },
-            { sub: "10-6 Stative", theory: "Estado.", en: "I am interested in art.", es: "Estoy interesado en el arte.", score: 0 }
+            { sub: "10-1 Passive", theory: "Voz Pasiva.", en: "The car was fixed by the mechanic.", es: "El coche fue arreglado por el mecánico.", score: 0 },
+            { sub: "10-2 Present Pass.", theory: "Es hecho.", en: "Rice is grown in Asia.", es: "El arroz se cultiva en Asia.", score: 0 }
+        ],
+        "11: Verbos (PDF 1-40)": [
+            { sub: "1. Answer", theory: "Contestar.", en: "I answer my emails every morning.", es: "Contesto mis correos cada mañana.", score: 0 },
+            { sub: "1. Answer", theory: "Contestando ahora.", en: "She is answering a call right now.", es: "Ella está contestando una llamada ahora mismo.", score: 0 },
+            { sub: "3. Arrive", theory: "Llegada.", en: "The bus arrives at eight o'clock.", es: "El autobús llega a las ocho en punto.", score: 0 },
+            { sub: "4. Ask", theory: "Preguntar.", en: "I always ask for help when I need it.", es: "Siempre pido ayuda cuando la necesito.", score: 0 },
+            { sub: "7. Be", theory: "Ser/Estar.", en: "I am a student and I am happy.", es: "Soy estudiante y soy feliz.", score: 0 },
+            { sub: "11. Begin", theory: "Comenzar.", en: "The movie began ten minutes ago.", es: "La película empezó hace diez minutos.", score: 0 },
+            { sub: "14. Bite", theory: "Morder.", en: "Be careful, that dog bites.", es: "Ten cuidado, ese perro muerde.", score: 0 },
+            { sub: "19. Bring", theory: "Traer.", en: "I always bring my lunch to work.", es: "Siempre traigo mi almuerzo al trabajo.", score: 0 },
+            { sub: "24. Buy", theory: "Comprar.", en: "We buy groceries on Saturdays.", es: "Compramos comida los sábados.", score: 0 },
+            { sub: "29. Clean", theory: "Limpiar.", en: "He is cleaning the kitchen now.", es: "Él está limpiando la cocina ahora.", score: 0 },
+            { sub: "33. Cook", theory: "Cocinar.", en: "We cooked chicken for lunch.", es: "Cocinamos pollo para el almuerzo.", score: 0 }
         ]
     };
 
-    // ====== LÓGICA CORE ======
-    let azarBook = JSON.parse(localStorage.getItem('azar_master_v11')) || masterData;
+    let azarBook = JSON.parse(localStorage.getItem('azar_final_v12')) || masterData;
     let currentCh = Object.keys(azarBook)[0];
     let currentSec = 0;
     let auto = false;
-    let autoTimer = null;
-
     const synth = window.speechSynthesis;
     const SpeechRec = window.SpeechRecognition || window.webkitSpeechRecognition;
     const rec = SpeechRec ? new SpeechRec() : null;
@@ -307,14 +204,13 @@
         document.getElementById('display-es').innerText = item.es;
         document.getElementById('unit-tag').innerText = `UNIT: ${currentSec + 1}/${azarBook[currentCh].length}`;
         document.getElementById('score-val').innerText = item.score > 0 ? item.score + "%" : "--";
-        localStorage.setItem('azar_master_v11', JSON.stringify(azarBook));
+        localStorage.setItem('azar_final_v12', JSON.stringify(azarBook));
     }
 
     function nav(dir) {
         const len = azarBook[currentCh].length;
         currentSec = (currentSec + dir + len) % len;
-        document.getElementById('diff-visual').innerHTML = "...";
-        document.getElementById('score-val').innerText = "--";
+        resetEval();
         updateUI();
         if(auto) speak();
     }
@@ -324,7 +220,7 @@
         const msg = new SpeechSynthesisUtterance(azarBook[currentCh][currentSec].en);
         msg.lang = 'en-US';
         msg.rate = 0.8;
-        msg.onend = () => { if(auto && currentSec < azarBook[currentCh].length - 1) autoTimer = setTimeout(()=>nav(1), 2000); };
+        msg.onend = () => { if(auto && currentSec < azarBook[currentCh].length - 1) setTimeout(()=>nav(1), 1500); };
         synth.speak(msg);
     }
 
@@ -338,14 +234,11 @@
         const target = azarBook[currentCh][currentSec].en.toLowerCase().replace(/[^\w\s]/g, '');
         const words = target.split(' ');
         const spokenWords = spoken.toLowerCase().split(' ');
-        
-        let html = '';
-        let matches = 0;
+        let html = ''; let matches = 0;
         words.forEach(w => {
             if(spokenWords.includes(w)) { html += `<span class="match">${w}</span> `; matches++; }
             else { html += `<span class="miss">${w}</span> `; }
         });
-
         const score = Math.round((matches / words.length) * 100);
         azarBook[currentCh][currentSec].score = Math.max(azarBook[currentCh][currentSec].score, score);
         document.getElementById('diff-visual').innerHTML = html;
@@ -355,8 +248,7 @@
     }
 
     function refreshStats() {
-        let scores = [];
-        let mastered = 0;
+        let scores = []; let mastered = 0;
         Object.values(azarBook).forEach(ch => ch.forEach(item => {
             if(item.score > 0) scores.push(item.score);
             if(item.score >= 90) mastered++;
@@ -364,7 +256,6 @@
         const avg = scores.length ? Math.round(scores.reduce((a,b)=>a+b)/scores.length) : 0;
         document.getElementById('acc-val').innerText = avg + "%";
         document.getElementById('mast-val').innerText = mastered;
-
         let rank = "BATTERY";
         if(avg > 20) rank = "COPPER TOP";
         if(avg > 50) rank = "POTENTIAL";
@@ -374,8 +265,9 @@
     }
 
     function toggleMenu() { document.getElementById('sidebar').classList.toggle('open'); }
+    function resetEval() { document.getElementById('diff-visual').innerHTML = "..."; document.getElementById('score-val').innerText = "--"; }
     function toggleAuto() { auto = !auto; document.getElementById('autoBtn').style.background = auto ? '#fff' : '#000'; if(auto) speak(); }
-    function resetSystem() { if(confirm("¿Reiniciar Matrix?")) { localStorage.clear(); location.reload(); } }
+    function resetSystem() { if(confirm("¿Borrar todo el progreso?")) { localStorage.clear(); location.reload(); } }
     
     window.onload = init;
 </script>
